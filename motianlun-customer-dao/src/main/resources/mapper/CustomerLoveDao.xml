@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.CustomerLoveDao">
+
+    <resultMap type="whj.nb.motianluneureka.bean.CustomerLove" id="CustomerLoveMap">
+        <id property="customerLoveId" column="customer_love_id" jdbcType="VARCHAR"/>
+        <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
+        <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CustomerLoveMap">
+        select
+          customer_love_id, customer_id, good_id
+        from motianlun.customer_love
+        where customer_love_id = #{customerLoveId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CustomerLoveMap">
+        select
+          customer_love_id, customer_id, good_id
+        from motianlun.customer_love
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CustomerLoveMap">
+        select
+        customer_love_id, customer_id, good_id
+        from motianlun.customer_love
+        <where>
+            <if test="customerLoveId != null and customerLoveId != ''">
+                and customer_love_id = #{customerLoveId}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                and customer_id = #{customerId}
+            </if>
+            <if test="goodId != null and goodId != ''">
+                and good_id = #{goodId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="customerLoveId" useGeneratedKeys="true">
+        insert into motianlun.customer_love(customer_id, good_id)
+        values (#{customerId}, #{goodId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update motianlun.customer_love
+        <set>
+            <if test="customerId != null and customerId != ''">
+                customer_id = #{customerId},
+            </if>
+            <if test="goodId != null and goodId != ''">
+                good_id = #{goodId},
+            </if>
+        </set>
+        where customer_love_id = #{customerLoveId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from motianlun.customer_love where customer_love_id = #{customerLoveId}
+    </delete>
+
+</mapper>

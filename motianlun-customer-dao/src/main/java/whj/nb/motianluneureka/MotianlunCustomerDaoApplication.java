@@ -6,9 +6,9 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @EnableEurekaServer
 @SpringBootApplication
-public class MotianlunEurekaApplication {
+public class MotianlunCustomerDaoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MotianlunEurekaApplication.class, args);
+        SpringApplication.run(MotianlunCustomerDaoApplication.class, args);
     }
 }

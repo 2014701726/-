@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.CustomerDao">
+
+    <resultMap type="whj.nb.motianluneureka.bean.Customer" id="CustomerMap">
+        <id property="customerId" column="customer_id" jdbcType="VARCHAR"/>
+        <result property="customerPhone" column="customer_phone" jdbcType="VARCHAR"/>
+        <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
+        <result property="couponId" column="coupon_id" jdbcType="VARCHAR"/>
+        <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+        <result property="addressId" column="address_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CustomerMap">
+        select
+          customer_id, customer_phone, order_id, coupon_id, good_id, address_id
+        from motianlun.customer
+        where customer_id = #{customerId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CustomerMap">
+        select
+          customer_id, customer_phone, order_id, coupon_id, good_id, address_id
+        from motianlun.customer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CustomerMap">
+        select
+        customer_id, customer_phone, order_id, coupon_id, good_id, address_id
+        from motianlun.customer
+        <where>
+            <if test="customerId != null and customerId != ''">
+                and customer_id = #{customerId}
+            </if>
+            <if test="customerPhone != null and customerPhone != ''">
+                and customer_phone = #{customerPhone}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="couponId != null and couponId != ''">
+                and coupon_id = #{couponId}
+            </if>
+            <if test="goodId != null and goodId != ''">
+                and good_id = #{goodId}
+            </if>
+            <if test="addressId != null and addressId != ''">
+                and address_id = #{addressId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="customerId" useGeneratedKeys="true">
+        insert into motianlun.customer(customer_phone, order_id, coupon_id, good_id, address_id)
+        values (#{customerPhone}, #{orderId}, #{couponId}, #{goodId}, #{addressId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update motianlun.customer
+        <set>
+            <if test="customerPhone != null and customerPhone != ''">
+                customer_phone = #{customerPhone},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                order_id = #{orderId},
+            </if>
+            <if test="couponId != null and couponId != ''">
+                coupon_id = #{couponId},
+            </if>
+            <if test="goodId != null and goodId != ''">
+                good_id = #{goodId},
+            </if>
+            <if test="addressId != null and addressId != ''">
+                address_id = #{addressId},
+            </if>
+        </set>
+        where customer_id = #{customerId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from motianlun.customer where customer_id = #{customerId}
+    </delete>
+
+</mapper>
