@@ -1,4 +1,4 @@
-package whj.nb.motianluneureka;
+package whj.nb.goodsdetail;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
