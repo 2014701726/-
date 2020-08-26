@@ -6,40 +6,45 @@
         <id property="customerLoveId" column="customer_love_id" jdbcType="VARCHAR"/>
         <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
         <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+        <association property="goods" javaType="whj.nb.motianluneureka.bean.Goods">
+            <id property="goodId" column="good_id" jdbcType="INTEGER"/>
+            <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
+            <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>
+            <result property="goodImg" column="good_img" jdbcType="VARCHAR"/>
+            <result property="lookUp" column="look_up" jdbcType="INTEGER"/>
+            <result property="showTime" column="show_time" jdbcType="OTHER"/>
+            <result property="showAddress" column="show_address" jdbcType="VARCHAR"/>
+            <result property="goodLoveNum" column="good_love_num" jdbcType="INTEGER"/>
+            <result property="detailName" column="detail_name" jdbcType="VARCHAR"/>
+            <result property="skuId" column="sku_id" jdbcType="VARCHAR"/>
+            <result property="goodDetail" column="good_detail" jdbcType="VARCHAR"/>
+            <result property="goodCityId" column="good_city_id" jdbcType="INTEGER"/>
+            <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
-    <!--查询单个-->
+    <!--查询想看演出详情-->
     <select id="queryById" resultMap="CustomerLoveMap">
         select
-          customer_love_id, customer_id, good_id
-        from motianlun.customer_love
+          customer_love_id, customer_id, cl.good_id,good_name,detail_url,good_img,look_up,show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id,performance_type_id
+        from motianlun.customer_love cl
         where customer_love_id = #{customerLoveId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="CustomerLoveMap">
-        select
-          customer_love_id, customer_id, good_id
-        from motianlun.customer_love
-        limit #{offset}, #{limit}
-    </select>
 
-    <!--通过实体作为筛选条件查询-->
+    <!--查询想看演出的最后六个-->
     <select id="queryAll" resultMap="CustomerLoveMap">
         select
-        customer_love_id, customer_id, good_id
-        from motianlun.customer_love
+        customer_love_id, customer_id, cl.good_id,good_name,detail_url,good_img,look_up,show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id,performance_type_id
+        FROM customer_love cl JOIN goods g ON cl.good_id=g.good_id
         <where>
-            <if test="customerLoveId != null and customerLoveId != ''">
-                and customer_love_id = #{customerLoveId}
-            </if>
+
             <if test="customerId != null and customerId != ''">
-                and customer_id = #{customerId}
+                and cl.customer_id = #{customerId}
             </if>
-            <if test="goodId != null and goodId != ''">
-                and good_id = #{goodId}
-            </if>
+
         </where>
+        ORDER BY cl.customer_love_id DESC LIMIT 6
     </select>
 
     <!--新增所有列-->
@@ -48,19 +53,6 @@
         values (#{customerId}, #{goodId})
     </insert>
 
-    <!--通过主键修改数据-->
-    <update id="update">
-        update motianlun.customer_love
-        <set>
-            <if test="customerId != null and customerId != ''">
-                customer_id = #{customerId},
-            </if>
-            <if test="goodId != null and goodId != ''">
-                good_id = #{goodId},
-            </if>
-        </set>
-        where customer_love_id = #{customerLoveId}
-    </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">

@@ -75,7 +75,7 @@ public class OrdersController {
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
-    public ResultVO saveOrder(Orders orders){
+    public ResultVO saveOrder(@RequestBody Orders orders){
         try {
             boolean b = ordersService.insert(orders);
             if(b){

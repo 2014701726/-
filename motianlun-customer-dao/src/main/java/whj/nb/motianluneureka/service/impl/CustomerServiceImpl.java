@@ -20,14 +20,13 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDao customerDao;
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param customerId 主键
+     * 登录
+     * @param customerPhone 主键
      * @return 实例对象
      */
     @Override
-    public Customer queryById(String customerId) {
-        return this.customerDao.queryById(customerId);
+    public Customer queryById(String customerPhone) {
+        return this.customerDao.queryById(customerPhone);
     }
 
     /**
@@ -49,9 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
      * @return 实例对象
      */
     @Override
-    public Customer insert(Customer customer) {
-        this.customerDao.insert(customer);
-        return customer;
+    public boolean insert(Customer customer) {
+
+        return this.customerDao.insert(customer)>0;
     }
 
     /**
@@ -61,9 +60,8 @@ public class CustomerServiceImpl implements CustomerService {
      * @return 实例对象
      */
     @Override
-    public Customer update(Customer customer) {
-        this.customerDao.update(customer);
-        return this.queryById(customer.getCustomerId());
+    public boolean update(Customer customer) {
+        return this.customerDao.update(customer)>0;
     }
 
     /**

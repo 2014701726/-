@@ -23,6 +23,8 @@ public class CustomerLove implements Serializable {
      */
     private String goodId;
 
+    private Goods goods;
+
 
     public String getCustomerLoveId() {
         return customerLoveId;
@@ -48,4 +50,11 @@ public class CustomerLove implements Serializable {
         this.goodId = goodId;
     }
 
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
 }

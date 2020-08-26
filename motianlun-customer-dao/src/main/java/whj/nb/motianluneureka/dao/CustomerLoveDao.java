@@ -16,30 +16,22 @@ import java.util.List;
 public interface CustomerLoveDao {
 
     /**
-     * 通过ID查询单条数据
+     * 查询想看演出详情
      *
      * @param customerLoveId 主键
      * @return 实例对象
      */
     CustomerLove queryById(String customerLoveId);
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
-    List<CustomerLove> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
-     * 通过实体作为筛选条件查询
+     * 查询想看演出的最后六个
      *
-     * @param customerLove 实例对象
+     * @param customerId 实例对象
      * @return 对象列表
      */
-    List<CustomerLove> queryAll(CustomerLove customerLove);
+    List<CustomerLove> queryAll(String customerId);
 
     /**
      * 新增数据
@@ -49,13 +41,6 @@ public interface CustomerLoveDao {
      */
     int insert(CustomerLove customerLove);
 
-    /**
-     * 修改数据
-     *
-     * @param customerLove 实例对象
-     * @return 影响行数
-     */
-    int update(CustomerLove customerLove);
 
     /**
      * 通过主键删除数据

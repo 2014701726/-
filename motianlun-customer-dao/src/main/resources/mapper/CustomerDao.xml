@@ -14,9 +14,9 @@
     <!--查询单个-->
     <select id="queryById" resultMap="CustomerMap">
         select
-          customer_id, customer_phone, order_id, coupon_id, good_id, address_id
+          customer_id, customer_phone
         from motianlun.customer
-        where customer_id = #{customerId}
+        where customer_phone = #{customerPhone}
     </select>
 
     <!--查询指定行数据-->
@@ -56,8 +56,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="customerId" useGeneratedKeys="true">
-        insert into motianlun.customer(customer_phone, order_id, coupon_id, good_id, address_id)
-        values (#{customerPhone}, #{orderId}, #{couponId}, #{goodId}, #{addressId})
+        insert into motianlun.customer(customer_id,customer_phone)
+        values (#{customerId},#{customerPhone})
     </insert>
 
     <!--通过主键修改数据-->

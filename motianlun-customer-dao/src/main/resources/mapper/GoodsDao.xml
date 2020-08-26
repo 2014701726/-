@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.GoodsDao">
+
+    <resultMap type="whj.nb.motianluneureka.bean.Goods" id="GoodsMap">
+        <id property="goodId" column="good_id" jdbcType="INTEGER"/>
+        <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
+        <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>
+        <result property="goodImg" column="good_img" jdbcType="VARCHAR"/>
+        <result property="lookUp" column="look_up" jdbcType="INTEGER"/>
+        <result property="showTime" column="show_time" jdbcType="OTHER"/>
+        <result property="showAddress" column="show_address" jdbcType="VARCHAR"/>
+        <result property="goodLoveNum" column="good_love_num" jdbcType="INTEGER"/>
+        <result property="detailName" column="detail_name" jdbcType="VARCHAR"/>
+        <result property="skuId" column="sku_id" jdbcType="VARCHAR"/>
+        <result property="goodDetail" column="good_detail" jdbcType="VARCHAR"/>
+        <result property="goodCityId" column="good_city_id" jdbcType="INTEGER"/>
+        <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GoodsMap">
+        select
+          good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id
+        from motianlun.goods
+        where good_id = #{goodId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GoodsMap">
+        select
+          good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id
+        from motianlun.goods
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GoodsMap">
+        select
+        good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id,
+        good_detail, good_city_id, performance_type_id
+        from motianlun.goods
+        <where>
+            <if test="goodId != null">
+                and good_id = #{goodId}
+            </if>
+            <if test="goodName != null and goodName != ''">
+                and good_name = #{goodName}
+            </if>
+            <if test="detailUrl != null and detailUrl != ''">
+                and detail_url = #{detailUrl}
+            </if>
+            <if test="goodImg != null and goodImg != ''">
+                and good_img = #{goodImg}
+            </if>
+            <if test="lookUp != null">
+                and look_up = #{lookUp}
+            </if>
+            <if test="showTime != null">
+                and show_time = #{showTime}
+            </if>
+            <if test="showAddress != null and showAddress != ''">
+                and show_address = #{showAddress}
+            </if>
+            <if test="goodLoveNum != null">
+                and good_love_num = #{goodLoveNum}
+            </if>
+            <if test="detailName != null and detailName != ''">
+                and detail_name = #{detailName}
+            </if>
+            <if test="skuId != null and skuId != ''">
+                and sku_id = #{skuId}
+            </if>
+            <if test="goodDetail != null and goodDetail != ''">
+                and good_detail = #{goodDetail}
+            </if>
+            <if test="goodCityId != null">
+                and good_city_id = #{goodCityId}
+            </if>
+            <if test="performanceTypeId != null and performanceTypeId != ''">
+                and performance_type_id = #{performanceTypeId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="goodId" useGeneratedKeys="true">
+        insert into motianlun.goods(good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id)
+        values (#{goodName}, #{detailUrl}, #{goodImg}, #{lookUp}, #{showTime}, #{showAddress}, #{goodLoveNum}, #{detailName}, #{skuId}, #{goodDetail}, #{goodCityId}, #{performanceTypeId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update motianlun.goods
+        <set>
+            <if test="goodName != null and goodName != ''">
+                good_name = #{goodName},
+            </if>
+            <if test="detailUrl != null and detailUrl != ''">
+                detail_url = #{detailUrl},
+            </if>
+            <if test="goodImg != null and goodImg != ''">
+                good_img = #{goodImg},
+            </if>
+            <if test="lookUp != null">
+                look_up = #{lookUp},
+            </if>
+            <if test="showTime != null">
+                show_time = #{showTime},
+            </if>
+            <if test="showAddress != null and showAddress != ''">
+                show_address = #{showAddress},
+            </if>
+            <if test="goodLoveNum != null">
+                good_love_num = #{goodLoveNum},
+            </if>
+            <if test="detailName != null and detailName != ''">
+                detail_name = #{detailName},
+            </if>
+            <if test="skuId != null and skuId != ''">
+                sku_id = #{skuId},
+            </if>
+            <if test="goodDetail != null and goodDetail != ''">
+                good_detail = #{goodDetail},
+            </if>
+            <if test="goodCityId != null">
+                good_city_id = #{goodCityId},
+            </if>
+            <if test="performanceTypeId != null and performanceTypeId != ''">
+                performance_type_id = #{performanceTypeId},
+            </if>
+        </set>
+        where good_id = #{goodId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from motianlun.goods where good_id = #{goodId}
+    </delete>
+
+</mapper>

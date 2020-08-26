@@ -13,12 +13,11 @@ import java.util.List;
 public interface CustomerService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param customerId 主键
+     * 登录
+     * @param customerPhone 主键
      * @return 实例对象
      */
-    Customer queryById(String customerId);
+    Customer queryById(String customerPhone);
 
     /**
      * 查询多条数据
@@ -35,7 +34,7 @@ public interface CustomerService {
      * @param customer 实例对象
      * @return 实例对象
      */
-    Customer insert(Customer customer);
+    boolean insert(Customer customer);
 
     /**
      * 修改数据
@@ -43,7 +42,7 @@ public interface CustomerService {
      * @param customer 实例对象
      * @return 实例对象
      */
-    Customer update(Customer customer);
+    boolean update(Customer customer);
 
     /**
      * 通过主键删除数据

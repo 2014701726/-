@@ -30,17 +30,11 @@ public class CustomerLoveServiceImpl implements CustomerLoveService {
         return this.customerLoveDao.queryById(customerLoveId);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
     @Override
-    public List<CustomerLove> queryAllByLimit(int offset, int limit) {
-        return this.customerLoveDao.queryAllByLimit(offset, limit);
+    public List<CustomerLove> queryAll(String customerId) {
+        return this.customerLoveDao.queryAll(customerId);
     }
+
 
     /**
      * 新增数据
@@ -49,22 +43,10 @@ public class CustomerLoveServiceImpl implements CustomerLoveService {
      * @return 实例对象
      */
     @Override
-    public CustomerLove insert(CustomerLove customerLove) {
-        this.customerLoveDao.insert(customerLove);
-        return customerLove;
+    public boolean insert(CustomerLove customerLove) {
+        return this.customerLoveDao.insert(customerLove)>0;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param customerLove 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public CustomerLove update(CustomerLove customerLove) {
-        this.customerLoveDao.update(customerLove);
-        return this.queryById(customerLove.getCustomerLoveId());
-    }
 
     /**
      * 通过主键删除数据

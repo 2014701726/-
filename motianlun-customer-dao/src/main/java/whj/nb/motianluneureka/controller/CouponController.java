@@ -45,11 +45,11 @@ public class CouponController {
      *
      * @return 单条数据
      */
-    @RequestMapping(value = "use",method = RequestMethod.GET)
-    public ResultVO use(String couponId) {
+    @RequestMapping(value = "use/{couponId}",method = RequestMethod.GET)
+    public ResultVO use(@PathVariable("couponId") String couponId) {
         try {
             Coupon coupon = couponService.queryById(couponId);
-            return new ResultVO(0,"find coupon success",coupon.getCouponType());
+            return new ResultVO(0,"use coupon success",coupon.getCouponType());
         }catch (Exception e){
             e.printStackTrace();
             return new ResultVO(1,"fail",null);

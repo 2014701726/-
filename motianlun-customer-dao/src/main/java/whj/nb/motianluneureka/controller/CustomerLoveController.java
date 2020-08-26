@@ -1,12 +1,13 @@
 package whj.nb.motianluneureka.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import whj.nb.motianluneureka.bean.Coupon;
 import whj.nb.motianluneureka.bean.CustomerLove;
 import whj.nb.motianluneureka.service.CustomerLoveService;
+import whj.nb.vo.ResultVO;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (CustomerLove)表控制层
@@ -23,15 +24,17 @@ public class CustomerLoveController {
     @Resource
     private CustomerLoveService customerLoveService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public CustomerLove selectOne(String id) {
-        return this.customerLoveService.queryById(id);
+
+
+    @RequestMapping(value = "list/{customerId}",method = RequestMethod.GET)
+    public ResultVO queryAll(@PathVariable("customerId") String customerId){
+        try {
+            List<CustomerLove> customerLoveList = customerLoveService.queryAll(customerId);
+            return new ResultVO(0,"find customerLoveList success",customerLoveList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResultVO(1,"fail",null);
+        }
     }
 
 }

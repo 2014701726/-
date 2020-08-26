@@ -21,13 +21,11 @@ public interface CustomerLoveService {
     CustomerLove queryById(String customerLoveId);
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * 查询想看列表
+     * @param customerId
+     * @return
      */
-    List<CustomerLove> queryAllByLimit(int offset, int limit);
+    List<CustomerLove> queryAll(String customerId);
 
     /**
      * 新增数据
@@ -35,15 +33,9 @@ public interface CustomerLoveService {
      * @param customerLove 实例对象
      * @return 实例对象
      */
-    CustomerLove insert(CustomerLove customerLove);
+    boolean insert(CustomerLove customerLove);
 
-    /**
-     * 修改数据
-     *
-     * @param customerLove 实例对象
-     * @return 实例对象
-     */
-    CustomerLove update(CustomerLove customerLove);
+
 
     /**
      * 通过主键删除数据
