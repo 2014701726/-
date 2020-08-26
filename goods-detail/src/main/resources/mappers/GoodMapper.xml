@@ -15,11 +15,13 @@
         <result column="good_detail" property="good_detail"></result>
         <result column="good_city_id" property="good_city_id"></result>
         <result column="performance_type_id" property="performance_type_id"></result>
+</resultMap>
 
-    </resultMap>
 
     <select id="findByid" resultMap="goodMap">
         select * from goods where good_id =#{id}
     </select>
+
+
 
 </mapper>

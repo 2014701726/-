@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.goodsdetail.dao.TicketDao">
+
+
+
+    <resultMap id="TicketMap" type="whj.nb.goodsdetail.bean.Ticket">
+        <id column="check_ticked_id" property="check_ticked_id"></id>
+        <result column="ticket_name" property="ticket_name"></result>
+        <result column="ticket_price" property="ticket_price"></result>
+        <result column="ticket_type" property="ticket_type"></result>
+        <result column="ticket_discount" property="ticket_discount"></result>
+        <result column="seat_id" property="seat_id"></result>
+     </resultMap>
+
+    <select id="findByid" resultMap="TicketMap">
+        select * from ticket where ticket.check_ticked_id in
+(select check_time.check_ticket_id from check_time where check_time.check_time_id in
+(select sku.check_time_id from sku where  sku.sku_id in
+(select goods.sku_id from goods where  goods.good_id=#{id})))
+    </select>
+    <select id="findTicketByid" resultMap="TicketMap">
+        select * from ticket where check_ticked_id =#{id}
+    </select>
+
+
+
+</mapper>
