@@ -19,27 +19,11 @@ public class AddressServiceImpl implements AddressService {
     @Resource
     private AddressDao addressDao;
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param addressId 主键
-     * @return 实例对象
-     */
-    @Override
-    public Address queryById(String addressId) {
-        return this.addressDao.queryById(addressId);
-    }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
+
     @Override
-    public List<Address> queryAllByLimit(int offset, int limit) {
-        return this.addressDao.queryAllByLimit(offset, limit);
+    public List<Address> queryAll(String customerId) {
+        return this.addressDao.queryAll(customerId);
     }
 
     /**
@@ -49,9 +33,9 @@ public class AddressServiceImpl implements AddressService {
      * @return 实例对象
      */
     @Override
-    public Address insert(Address address) {
-        this.addressDao.insert(address);
-        return address;
+    public boolean insert(Address address) {
+        address.setAddressId(System.currentTimeMillis()+"");
+        return this.addressDao.insert(address)>0;
     }
 
     /**
@@ -61,9 +45,8 @@ public class AddressServiceImpl implements AddressService {
      * @return 实例对象
      */
     @Override
-    public Address update(Address address) {
+    public void update(Address address) {
         this.addressDao.update(address);
-        return this.queryById(address.getAddressId());
     }
 
     /**

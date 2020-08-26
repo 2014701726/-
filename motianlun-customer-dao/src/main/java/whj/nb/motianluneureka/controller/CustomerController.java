@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import whj.nb.motianluneureka.bean.Address;
 import whj.nb.motianluneureka.bean.Customer;
 import whj.nb.motianluneureka.bean.CustomerLove;
 import whj.nb.motianluneureka.config.AliyunConfig;
@@ -28,22 +29,38 @@ public class CustomerController {
     @Resource
     private CustomerService customerService;
 
+    private String code;
+
+    @RequestMapping("/{telnum}/{msg}")
+    public ResultVO login(@PathVariable("telnum") String telnum,@PathVariable("msg") String msg){
+        try {
+            if (msg.equals(code)) {
+                return new ResultVO(0, "login success", null);
+            }else {
+                return new ResultVO(1,"fail",null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResultVO(1,"fail",null);
+        }
+    }
+
 
     @RequestMapping("/{telnum}")
-    public ResultVO login(@PathVariable("telnum") String telnum){
+    public ResultVO sendCode(@PathVariable("telnum") String telnum){
         try {
             AliyunConfig aliyunConfig = new AliyunConfig();
             Customer customer = customerService.queryById(telnum);
             if(customer!=null){
-                aliyunConfig.login(telnum);
-                return new ResultVO(0,"login success",customer);
+                code = aliyunConfig.login(telnum);
+                return new ResultVO(0,"send login code",null);
             }else {
-                aliyunConfig.register(telnum);
+                String code = aliyunConfig.register(telnum);
                 Customer customer1 = new Customer();
                 customer1.setCustomerId(System.currentTimeMillis()+"");
                 customer1.setCustomerPhone(telnum);
                 customerService.insert(customer1);
-                return new ResultVO(0,"register success",customer1);
+                return new ResultVO(0,"send register code",null);
             }
 
         }catch (Exception e){

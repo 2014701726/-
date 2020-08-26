@@ -26,7 +26,7 @@ public class CustomerLoveController {
 
 
 
-    @RequestMapping(value = "list/{customerId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{customerId}",method = RequestMethod.GET)
     public ResultVO queryAll(@PathVariable("customerId") String customerId){
         try {
             List<CustomerLove> customerLoveList = customerLoveService.queryAll(customerId);

@@ -12,22 +12,14 @@ import java.util.List;
  */
 public interface AddressService {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param addressId 主键
-     * @return 实例对象
-     */
-    Address queryById(String addressId);
 
     /**
-     * 查询多条数据
+     * 通过实体作为筛选条件查询
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param customerId 实例对象
      * @return 对象列表
      */
-    List<Address> queryAllByLimit(int offset, int limit);
+    List<Address> queryAll(String customerId);
 
     /**
      * 新增数据
@@ -35,7 +27,7 @@ public interface AddressService {
      * @param address 实例对象
      * @return 实例对象
      */
-    Address insert(Address address);
+    boolean insert(Address address);
 
     /**
      * 修改数据
@@ -43,7 +35,7 @@ public interface AddressService {
      * @param address 实例对象
      * @return 实例对象
      */
-    Address update(Address address);
+    void update(Address address);
 
     /**
      * 通过主键删除数据

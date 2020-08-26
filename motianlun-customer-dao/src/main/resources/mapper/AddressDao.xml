@@ -4,76 +4,38 @@
 
     <resultMap type="whj.nb.motianluneureka.bean.Address" id="AddressMap">
         <id property="addressId" column="address_id" jdbcType="VARCHAR"/>
-        <result property="customerPhone" column="customer_phone" jdbcType="VARCHAR"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="province" column="province" jdbcType="VARCHAR"/>
         <result property="city" column="city" jdbcType="VARCHAR"/>
         <result property="area" column="AREA" jdbcType="VARCHAR"/>
         <result property="detail" column="detail" jdbcType="VARCHAR"/>
         <result property="ismrAddr" column="ismr_addr" jdbcType="VARCHAR"/>
+        <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="AddressMap">
-        select
-          address_id, customer_phone, phone, province, city, AREA, detail, ismr_addr
-        from motianlun.address
-        where address_id = #{addressId}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="AddressMap">
-        select
-          address_id, customer_phone, phone, province, city, AREA, detail, ismr_addr
-        from motianlun.address
-        limit #{offset}, #{limit}
-    </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AddressMap">
-        select
-        address_id, customer_phone, phone, province, city, AREA, detail, ismr_addr
-        from motianlun.address
-        <where>
-            <if test="addressId != null and addressId != ''">
-                and address_id = #{addressId}
-            </if>
-            <if test="customerPhone != null and customerPhone != ''">
-                and customer_phone = #{customerPhone}
-            </if>
-            <if test="phone != null and phone != ''">
-                and phone = #{phone}
-            </if>
-            <if test="province != null and province != ''">
-                and province = #{province}
-            </if>
-            <if test="city != null and city != ''">
-                and city = #{city}
-            </if>
-            <if test="area != null and area != ''">
-                and AREA = #{area}
-            </if>
-            <if test="detail != null and detail != ''">
-                and detail = #{detail}
-            </if>
-            <if test="ismrAddr != null and ismrAddr != ''">
-                and ismr_addr = #{ismrAddr}
-            </if>
-        </where>
+        SELECT
+	a.address_id,customer_name,phone,province,city,AREA,detail,ismr_addr
+    FROM
+	address a
+    JOIN customer c ON a.customer_id=c.customer_id AND c.customer_id=#{customerId};
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="addressId" useGeneratedKeys="true">
-        insert into motianlun.address(customer_phone, phone, province, city, AREA, detail, ismr_addr)
-        values (#{customerPhone}, #{phone}, #{province}, #{city}, #{area}, #{detail}, #{ismrAddr})
+        insert into motianlun.address(address_id,customer_name, phone, province, city, AREA, detail, ismr_addr)
+        values (#{addressId},#{customerName}, #{phone}, #{province}, #{city}, #{area}, #{detail}, #{ismrAddr})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update motianlun.address
         <set>
-            <if test="customerPhone != null and customerPhone != ''">
-                customer_phone = #{customerPhone},
+            <if test="customerName != null and customerName != ''">
+                customer_name = #{customerName},
             </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},

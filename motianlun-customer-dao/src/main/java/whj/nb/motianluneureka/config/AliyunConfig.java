@@ -65,18 +65,20 @@ public class AliyunConfig {
         return null;
     }
 
-    public void login(String telnum)throws ClientException, InterruptedException{
+    public String login(String telnum)throws ClientException, InterruptedException{
         setNewcode();
         String code = Integer.toString(getNewcode());
         //发短信
         SendSmsResponse response = sendSms(telnum, code,"SMS_200710208");
+        return code;
     }
 
-    public void register(String telnum)throws ClientException, InterruptedException{
+    public String register(String telnum)throws ClientException, InterruptedException{
         setNewcode();
         String code = Integer.toString(getNewcode());
         //发短信
         SendSmsResponse response = sendSms(telnum, code,"SMS_200690165");
+        return code;
     }
 
 

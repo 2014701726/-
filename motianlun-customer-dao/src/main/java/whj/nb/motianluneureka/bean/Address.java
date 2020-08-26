@@ -4,13 +4,14 @@ package whj.nb.motianluneureka.bean;
 public class Address {
 
   private String addressId;
-  private String customerPhone;
+  private String customerName;
   private String phone;
   private String province;
   private String city;
   private String area;
   private String detail;
   private String ismrAddr;
+  private String customerId;
 
 
   public String getAddressId() {
@@ -21,14 +22,15 @@ public class Address {
     this.addressId = addressId;
   }
 
-
-  public String getCustomerPhone() {
-    return customerPhone;
+  public String getCustomerName() {
+    return customerName;
   }
 
-  public void setCustomerPhone(String customerPhone) {
-    this.customerPhone = customerPhone;
+  public void setCustomerName(String customerName) {
+    this.customerName = customerName;
   }
+
+
 
 
   public String getPhone() {
@@ -84,4 +86,11 @@ public class Address {
     this.ismrAddr = ismrAddr;
   }
 
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
 }
