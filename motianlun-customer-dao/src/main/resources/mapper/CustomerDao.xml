@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whj.nb.motianluneureka.dao.CustomerDao">
 
-    <resultMap type="whj.nb.motianluneureka.bean.Customer" id="CustomerMap">
+    <resultMap type="whj.nb.motianluneureka.entity.Customer" id="CustomerMap">
         <id property="customerId" column="customer_id" jdbcType="VARCHAR"/>
         <result property="customerPhone" column="customer_phone" jdbcType="VARCHAR"/>
         <result property="orderId" column="order_id" jdbcType="VARCHAR"/>

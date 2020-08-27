@@ -1,6 +1,6 @@
 package whj.nb.motianluneureka.service;
 
-import whj.nb.motianluneureka.bean.Goods;
+import whj.nb.motianluneureka.entity.Goods;
 
 import java.util.List;
 

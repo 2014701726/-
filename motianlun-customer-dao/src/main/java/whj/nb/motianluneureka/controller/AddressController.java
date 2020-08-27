@@ -1,8 +1,7 @@
 package whj.nb.motianluneureka.controller;
 
 import org.springframework.web.bind.annotation.*;
-import whj.nb.motianluneureka.bean.Address;
-import whj.nb.motianluneureka.bean.Score;
+import whj.nb.motianluneureka.entity.Address;
 import whj.nb.motianluneureka.service.AddressService;
 import whj.nb.vo.ResultVO;
 

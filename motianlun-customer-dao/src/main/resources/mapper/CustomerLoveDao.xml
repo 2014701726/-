@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whj.nb.motianluneureka.dao.CustomerLoveDao">
 
-    <resultMap type="whj.nb.motianluneureka.bean.CustomerLove" id="CustomerLoveMap">
+    <resultMap type="whj.nb.motianluneureka.entity.CustomerLove" id="CustomerLoveMap">
         <id property="customerLoveId" column="customer_love_id" jdbcType="VARCHAR"/>
         <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
         <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
-        <association property="goods" javaType="whj.nb.motianluneureka.bean.Goods">
+        <association property="goods" javaType="whj.nb.motianluneureka.entity.Goods">
             <id property="goodId" column="good_id" jdbcType="INTEGER"/>
             <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
             <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>

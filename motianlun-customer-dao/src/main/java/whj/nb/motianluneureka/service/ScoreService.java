@@ -1,6 +1,6 @@
 package whj.nb.motianluneureka.service;
 
-import whj.nb.motianluneureka.bean.Score;
+import whj.nb.motianluneureka.entity.Score;
 
 import java.util.List;
 

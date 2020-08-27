@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.TicketDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.Ticket" id="TicketMap">
+        <id property="checkTickedId" column="check_ticked_id" jdbcType="VARCHAR"/>
+        <result property="ticketName" column="ticket_name" jdbcType="VARCHAR"/>
+        <result property="ticketPrice" column="ticket_price" jdbcType="OTHER"/>
+        <result property="ticketType" column="ticket_type" jdbcType="VARCHAR"/>
+        <result property="ticketDiscount" column="ticket_discount" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TicketMap">
+        select
+          check_ticked_id, ticket_name, ticket_price, ticket_type, ticket_discount
+        from motianlun.ticket
+        where check_ticked_id = #{checkTickedId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TicketMap">
+        select
+          check_ticked_id, ticket_name, ticket_price, ticket_type, ticket_discount
+        from motianlun.ticket
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TicketMap">
+        select
+        check_ticked_id, ticket_name, ticket_price, ticket_type, ticket_discount
+        from motianlun.ticket
+        <where>
+            <if test="checkTickedId != null and checkTickedId != ''">
+                and check_ticked_id = #{checkTickedId}
+            </if>
+            <if test="ticketName != null and ticketName != ''">
+                and ticket_name = #{ticketName}
+            </if>
+            <if test="ticketPrice != null">
+                and ticket_price = #{ticketPrice}
+            </if>
+            <if test="ticketType != null and ticketType != ''">
+                and ticket_type = #{ticketType}
+            </if>
+            <if test="ticketDiscount != null and ticketDiscount != ''">
+                and ticket_discount = #{ticketDiscount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="checkTickedId" useGeneratedKeys="true">
+        insert into motianlun.ticket(ticket_name, ticket_price, ticket_type, ticket_discount)
+        values (#{ticketName}, #{ticketPrice}, #{ticketType}, #{ticketDiscount})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update motianlun.ticket
+        <set>
+            <if test="ticketName != null and ticketName != ''">
+                ticket_name = #{ticketName},
+            </if>
+            <if test="ticketPrice != null">
+                ticket_price = #{ticketPrice},
+            </if>
+            <if test="ticketType != null and ticketType != ''">
+                ticket_type = #{ticketType},
+            </if>
+            <if test="ticketDiscount != null and ticketDiscount != ''">
+                ticket_discount = #{ticketDiscount},
+            </if>
+        </set>
+        where check_ticked_id = #{checkTickedId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from motianlun.ticket where check_ticked_id = #{checkTickedId}
+    </delete>
+
+</mapper>

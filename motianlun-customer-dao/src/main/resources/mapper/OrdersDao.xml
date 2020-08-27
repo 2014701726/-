@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whj.nb.motianluneureka.dao.OrdersDao">
 
-    <resultMap type="whj.nb.motianluneureka.bean.Orders" id="OrdersMap">
+    <resultMap type="whj.nb.motianluneureka.entity.Orders" id="OrdersMap">
         <id property="orderId" column="order_id" jdbcType="VARCHAR"/>
         <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
         <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
@@ -12,64 +12,72 @@
         <result property="ticketId" column="ticket_id" jdbcType="VARCHAR"/>
         <result property="couponId" column="coupon_id" jdbcType="VARCHAR"/>
         <result property="scoreId" column="score_id" jdbcType="VARCHAR"/>
+        <result property="checkTimeId" column="score_id" jdbcType="VARCHAR"/>
+        <result property="seatId" column="seat_id" jdbcType="VARCHAR"/>
+        <result property="takerName" column="taker_name" jdbcType="VARCHAR"/>
+        <result property="takerPhone" column="taker_phone" jdbcType="VARCHAR"/>
+        <association property="goods" javaType="whj.nb.motianluneureka.entity.Goods">
+            <id property="goodId" column="good_id" jdbcType="INTEGER"/>
+            <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
+            <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>
+            <result property="goodImg" column="good_img" jdbcType="VARCHAR"/>
+            <result property="lookUp" column="look_up" jdbcType="INTEGER"/>
+            <result property="showTime" column="show_time" jdbcType="OTHER"/>
+            <result property="showAddress" column="show_address" jdbcType="VARCHAR"/>
+            <result property="goodLoveNum" column="good_love_num" jdbcType="INTEGER"/>
+            <result property="detailName" column="detail_name" jdbcType="VARCHAR"/>
+            <result property="skuId" column="sku_id" jdbcType="VARCHAR"/>
+            <result property="goodDetail" column="good_detail" jdbcType="VARCHAR"/>
+            <result property="goodCityId" column="good_city_id" jdbcType="INTEGER"/>
+            <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
+        </association>
+        <association property="ticket" javaType="whj.nb.motianluneureka.entity.Ticket">
+            <id property="checkTickedId" column="check_ticked_id" jdbcType="VARCHAR"/>
+            <result property="ticketName" column="ticket_name" jdbcType="VARCHAR"/>
+            <result property="ticketPrice" column="ticket_price" jdbcType="OTHER"/>
+            <result property="ticketType" column="ticket_type" jdbcType="VARCHAR"/>
+            <result property="ticketDiscount" column="ticket_discount" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="OrdersMap">
-        select
-          order_id, good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id
-        from motianlun.orders
-        where order_id = #{orderId}
+        SELECT
+	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,
+	o.taker_name,o.taker_phone,t.ticket_price,ct.check_time,g.good_name,g.good_img,g.show_time,g.show_address
+FROM
+	orders o
+JOIN ticket t
+JOIN check_time ct
+JOIN goods g
+ON o.ticket_id = t.check_ticked_id
+AND o.good_id=g.good_id
+AND o.check_time_id = ct.check_ticket_id
+WHERE o.order_id=#{orderId};
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="OrdersMap">
-        select
-          order_id, good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id
-        from motianlun.orders
-        limit #{offset}, #{limit}
-    </select>
+
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="OrdersMap">
-        select
-        order_id, good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id
-        from motianlun.orders
-        <where>
-            <if test="orderId != null and orderId != ''">
-                and order_id = #{orderId}
-            </if>
-            <if test="goodId != null and goodId != ''">
-                and good_id = #{goodId}
-            </if>
-            <if test="customerId != null and customerId != ''">
-                and customer_id = #{customerId}
-            </if>
-            <if test="createTime != null and createTime != ''">
-                and create_time = #{createTime}
-            </if>
-            <if test="addressId != null and addressId != ''">
-                and address_id = #{addressId}
-            </if>
-            <if test="remark != null and remark != ''">
-                and remark = #{remark}
-            </if>
-            <if test="ticketId != null and ticketId != ''">
-                and ticket_id = #{ticketId}
-            </if>
-            <if test="couponId != null and couponId != ''">
-                and coupon_id = #{couponId}
-            </if>
-            <if test="scoreId != null and scoreId != ''">
-                and score_id = #{scoreId}
-            </if>
-        </where>
+        SELECT
+	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,
+	o.taker_name,o.taker_phone,t.ticket_price,ct.check_time,g.good_name,g.good_img,g.show_time,g.show_address
+FROM
+	orders o
+JOIN ticket t
+JOIN check_time ct
+JOIN goods g
+ON o.ticket_id = t.check_ticked_id
+AND o.good_id=g.good_id
+AND o.check_time_id = ct.check_ticket_id
+WHERE o.customer_id=#{customerId};
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="orderId" useGeneratedKeys="true">
-        insert into motianlun.orders(good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id)
-        values (#{goodId}, #{customerId}, #{createTime}, #{addressId}, #{remark}, #{ticketId}, #{couponId}, #{scoreId})
+        insert into motianlun.orders(good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id,seat_id,check_time_id,taker_name,taker_Phone)
+        values (#{goodId}, #{customerId}, #{createTime}, #{addressId}, #{remark}, #{ticketId}, #{couponId}, #{scoreId},#{seatId},#{checkTimeId},#{takerName},#{takerPhone})
     </insert>
 
 

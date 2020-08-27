@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.service.impl;
 
 import org.springframework.stereotype.Service;
 import whj.nb.motianluneureka.dao.ScoreDao;
-import whj.nb.motianluneureka.bean.Score;
+import whj.nb.motianluneureka.entity.Score;
 import whj.nb.motianluneureka.service.ScoreService;
 
 import javax.annotation.Resource;

@@ -1,7 +1,7 @@
 package whj.nb.motianluneureka.controller;
 
 import org.springframework.web.bind.annotation.*;
-import whj.nb.motianluneureka.bean.Coupon;
+import whj.nb.motianluneureka.entity.Coupon;
 import whj.nb.motianluneureka.service.CouponService;
 import whj.nb.vo.ResultVO;
 
@@ -31,7 +31,7 @@ public class CouponController {
     @RequestMapping(value = "/{customerId}",method = RequestMethod.GET)
     public ResultVO list(@PathVariable("customerId") String customerId){
         try {
-            List<Coupon> couponList = couponService.queryAllByLimit(customerId, 1, 5);
+            List<Coupon> couponList = couponService.queryAll(customerId);
             return new ResultVO(0,"find couponList success",couponList);
         }catch (Exception e){
             e.printStackTrace();

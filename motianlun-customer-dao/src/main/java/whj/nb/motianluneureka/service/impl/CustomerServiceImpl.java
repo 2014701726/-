@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.service.impl;
 
 import org.springframework.stereotype.Service;
 import whj.nb.motianluneureka.dao.CustomerDao;
-import whj.nb.motianluneureka.bean.Customer;
+import whj.nb.motianluneureka.entity.Customer;
 import whj.nb.motianluneureka.service.CustomerService;
 
 import javax.annotation.Resource;

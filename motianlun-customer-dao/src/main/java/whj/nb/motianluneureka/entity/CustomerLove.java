@@ -1,4 +1,4 @@
-package whj.nb.motianluneureka.bean;
+package whj.nb.motianluneureka.entity;
 
 import java.io.Serializable;
 

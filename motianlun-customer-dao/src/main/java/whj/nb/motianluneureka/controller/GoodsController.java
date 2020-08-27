@@ -3,7 +3,7 @@ package whj.nb.motianluneureka.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import whj.nb.motianluneureka.bean.Goods;
+import whj.nb.motianluneureka.entity.Goods;
 import whj.nb.motianluneureka.service.GoodsService;
 
 import javax.annotation.Resource;

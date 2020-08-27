@@ -1,7 +1,7 @@
 package whj.nb.motianluneureka.controller;
 
 import org.springframework.web.bind.annotation.*;
-import whj.nb.motianluneureka.bean.Orders;
+import whj.nb.motianluneureka.entity.Orders;
 import whj.nb.motianluneureka.service.OrdersService;
 import whj.nb.vo.ResultVO;
 
@@ -27,7 +27,7 @@ public class OrdersController {
     @RequestMapping(value="list/{customerId}",method = RequestMethod.GET)
     public ResultVO list(@PathVariable("customerId") String customerId){
         try {
-            List<Orders> ordersList = ordersService.queryAllByLimit(customerId,1, 5);
+            List<Orders> ordersList = ordersService.queryAll(customerId);
             return new ResultVO(0,"find orderList success",ordersList);
         }catch (Exception e){
             e.printStackTrace();

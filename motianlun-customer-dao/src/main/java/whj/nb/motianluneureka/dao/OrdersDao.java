@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import whj.nb.motianluneureka.bean.Orders;
+import whj.nb.motianluneureka.entity.Orders;
 
 import java.util.List;
 
@@ -22,23 +22,15 @@ public interface OrdersDao {
      */
     Orders queryById(String orderId);
 
-    /**
-     * 查询指定行数据
-     * @param customerId 用户ID
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
-    List<Orders> queryAllByLimit(@Param("customerId")String customerId,@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
-     * 通过实体作为筛选条件查询
+     * 通过用户ID作为筛选条件查询
      *
-     * @param orders 实例对象
+     * @param customerId 用户ID
      * @return 对象列表
      */
-    List<Orders> queryAll(Orders orders);
+    List<Orders> queryAll(String customerId);
 
     /**
      * 新增数据

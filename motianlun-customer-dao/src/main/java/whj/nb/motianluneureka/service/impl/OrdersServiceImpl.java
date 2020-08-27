@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.service.impl;
 
 import org.springframework.stereotype.Service;
 import whj.nb.motianluneureka.dao.OrdersDao;
-import whj.nb.motianluneureka.bean.Orders;
+import whj.nb.motianluneureka.entity.Orders;
 import whj.nb.motianluneureka.service.OrdersService;
 
 import javax.annotation.Resource;
@@ -27,19 +27,21 @@ public class OrdersServiceImpl implements OrdersService {
      */
     @Override
     public Orders queryById(String orderId) {
-        return this.ordersDao.queryById(orderId);
+        Orders orders = this.ordersDao.queryById(orderId);
+        String ordersTakerPhone = orders.getTakerPhone();
+        String hidePhone = ordersTakerPhone.substring(0, 3) + "****" + ordersTakerPhone.substring(ordersTakerPhone.length() - 4, ordersTakerPhone.length());
+        orders.setTakerPhone(hidePhone);
+        return orders;
     }
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
     @Override
-    public List<Orders> queryAllByLimit(String customerId,int offset, int limit) {
-        return this.ordersDao.queryAllByLimit(customerId,offset, limit);
+    public List<Orders> queryAll(String customerId) {
+        return this.ordersDao.queryAll(customerId);
     }
 
     /**

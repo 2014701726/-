@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import whj.nb.motianluneureka.bean.Coupon;
+import whj.nb.motianluneureka.entity.Coupon;
 
 import java.util.List;
 
@@ -26,11 +26,9 @@ public interface CouponDao {
     /**
      * 查询指定行数据
      * @param customerId
-     * @param offset
-     * @param limit
      * @return
      */
-    List<Coupon> queryAllByLimit(@Param("customerId")String customerId,@Param("offset") int offset, @Param("limit") int limit);
+    List<Coupon> queryAll(@Param("customerId")String customerId);
 
 
 

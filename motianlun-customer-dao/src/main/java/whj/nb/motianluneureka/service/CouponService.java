@@ -1,6 +1,6 @@
 package whj.nb.motianluneureka.service;
 
-import whj.nb.motianluneureka.bean.Coupon;
+import whj.nb.motianluneureka.entity.Coupon;
 
 import java.util.List;
 
@@ -23,11 +23,9 @@ public interface CouponService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
-    List<Coupon> queryAllByLimit(String customerId,int offset, int limit);
+    List<Coupon> queryAll(String customerId);
 
 
 

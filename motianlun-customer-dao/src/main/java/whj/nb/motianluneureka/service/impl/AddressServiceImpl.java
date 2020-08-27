@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.service.impl;
 
 import org.springframework.stereotype.Service;
 import whj.nb.motianluneureka.dao.AddressDao;
-import whj.nb.motianluneureka.bean.Address;
+import whj.nb.motianluneureka.entity.Address;
 import whj.nb.motianluneureka.service.AddressService;
 
 import javax.annotation.Resource;

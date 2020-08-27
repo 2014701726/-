@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import whj.nb.motianluneureka.bean.Score;
+import whj.nb.motianluneureka.entity.Score;
 
 import java.util.List;
 

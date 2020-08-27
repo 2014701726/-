@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whj.nb.motianluneureka.dao.CouponDao">
 
-    <resultMap type="whj.nb.motianluneureka.bean.Coupon" id="CouponMap">
+    <resultMap type="whj.nb.motianluneureka.entity.Coupon" id="CouponMap">
         <id property="couponId" column="coupon_id" jdbcType="VARCHAR"/>
         <result property="couponName" column="coupon_name" jdbcType="VARCHAR"/>
         <result property="couponTime" column="coupon_time" jdbcType="VARCHAR"/>
@@ -21,79 +21,14 @@
         where coupon_id = #{couponId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="CouponMap">
-        select
-          coupon_id, coupon_name, coupon_time, coupon_price, coupon_con, coupon_type, coupon_state
-        from motianlun.coupon
-        limit #{offset}, #{limit}
-    </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CouponMap">
         select
         coupon_id, coupon_name, coupon_time, coupon_price, coupon_con, coupon_type, coupon_state
         from motianlun.coupon
-        <where>
-            <if test="couponId != null and couponId != ''">
-                and coupon_id = #{couponId}
-            </if>
-            <if test="couponName != null and couponName != ''">
-                and coupon_name = #{couponName}
-            </if>
-            <if test="couponTime != null and couponTime != ''">
-                and coupon_time = #{couponTime}
-            </if>
-            <if test="couponPrice != null and couponPrice != ''">
-                and coupon_price = #{couponPrice}
-            </if>
-            <if test="couponCon != null and couponCon != ''">
-                and coupon_con = #{couponCon}
-            </if>
-            <if test="couponType != null and couponType != ''">
-                and coupon_type = #{couponType}
-            </if>
-            <if test="couponState != null and couponState != ''">
-                and coupon_state = #{couponState}
-            </if>
-        </where>
+        where customer_id=#{customerId}
     </select>
 
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="couponId" useGeneratedKeys="true">
-        insert into motianlun.coupon(coupon_name, coupon_time, coupon_price, coupon_con, coupon_type, coupon_state)
-        values (#{couponName}, #{couponTime}, #{couponPrice}, #{couponCon}, #{couponType}, #{couponState})
-    </insert>
-
-    <!--通过主键修改数据-->
-    <update id="update">
-        update motianlun.coupon
-        <set>
-            <if test="couponName != null and couponName != ''">
-                coupon_name = #{couponName},
-            </if>
-            <if test="couponTime != null and couponTime != ''">
-                coupon_time = #{couponTime},
-            </if>
-            <if test="couponPrice != null and couponPrice != ''">
-                coupon_price = #{couponPrice},
-            </if>
-            <if test="couponCon != null and couponCon != ''">
-                coupon_con = #{couponCon},
-            </if>
-            <if test="couponType != null and couponType != ''">
-                coupon_type = #{couponType},
-            </if>
-            <if test="couponState != null and couponState != ''">
-                coupon_state = #{couponState},
-            </if>
-        </set>
-        where coupon_id = #{couponId}
-    </update>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from motianlun.coupon where coupon_id = #{couponId}
-    </delete>
 
 </mapper>

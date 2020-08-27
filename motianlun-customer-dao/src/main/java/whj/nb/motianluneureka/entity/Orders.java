@@ -1,4 +1,4 @@
-package whj.nb.motianluneureka.bean;
+package whj.nb.motianluneureka.entity;
 
 
 public class Orders {
@@ -12,7 +12,12 @@ public class Orders {
   private String ticketId;
   private String couponId;
   private String scoreId;
-
+  private String checkTimeId;
+  private String seatId;
+  private String takerName;
+  private String takerPhone;
+  private Goods goods;
+  private Ticket ticket;
 
   public String getOrderId() {
     return orderId;
@@ -94,4 +99,51 @@ public class Orders {
     this.scoreId = scoreId;
   }
 
+  public String getCheckTimeId() {
+    return checkTimeId;
+  }
+
+  public void setCheckTimeId(String checkTimeId) {
+    this.checkTimeId = checkTimeId;
+  }
+
+  public String getSeatId() {
+    return seatId;
+  }
+
+  public void setSeatId(String seatId) {
+    this.seatId = seatId;
+  }
+
+  public String getTakerName() {
+    return takerName;
+  }
+
+  public void setTakerName(String takerName) {
+    this.takerName = takerName;
+  }
+
+  public String getTakerPhone() {
+    return takerPhone;
+  }
+
+  public void setTakerPhone(String takerPhone) {
+    this.takerPhone = takerPhone;
+  }
+
+  public Goods getGoods() {
+    return goods;
+  }
+
+  public void setGoods(Goods goods) {
+    this.goods = goods;
+  }
+
+  public Ticket getTicket() {
+    return ticket;
+  }
+
+  public void setTicket(Ticket ticket) {
+    this.ticket = ticket;
+  }
 }

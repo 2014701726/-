@@ -2,7 +2,7 @@ package whj.nb.motianluneureka.service.impl;
 
 import org.springframework.stereotype.Service;
 import whj.nb.motianluneureka.dao.CouponDao;
-import whj.nb.motianluneureka.bean.Coupon;
+import whj.nb.motianluneureka.entity.Coupon;
 import whj.nb.motianluneureka.service.CouponService;
 
 import javax.annotation.Resource;
@@ -33,13 +33,11 @@ public class CouponServiceImpl implements CouponService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
      * @return 对象列表
      */
     @Override
-    public List<Coupon> queryAllByLimit(String customerId,int offset, int limit) {
-        return this.couponDao.queryAllByLimit(customerId,offset, limit);
+    public List<Coupon> queryAll(String customerId) {
+        return this.couponDao.queryAll(customerId);
     }
 
 }

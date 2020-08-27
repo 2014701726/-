@@ -1,8 +1,7 @@
 package whj.nb.motianluneureka.controller;
 
 import org.springframework.web.bind.annotation.*;
-import whj.nb.motianluneureka.bean.Coupon;
-import whj.nb.motianluneureka.bean.CustomerLove;
+import whj.nb.motianluneureka.entity.CustomerLove;
 import whj.nb.motianluneureka.service.CustomerLoveService;
 import whj.nb.vo.ResultVO;
 
