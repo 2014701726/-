@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.GoodsDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.Goods" id="GoodsMap">
+        <result property="goodId" column="good_id" jdbcType="INTEGER"/>
+        <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
+        <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>
+        <result property="goodImg" column="good_img" jdbcType="VARCHAR"/>
+        <result property="lookUp" column="look_up" jdbcType="VARCHAR"/>
+        <result property="showTime" column="show_time" jdbcType="OTHER"/>
+        <result property="showAddress" column="show_address" jdbcType="VARCHAR"/>
+        <result property="goodLoveNum" column="good_love_num" jdbcType="VARCHAR"/>
+        <result property="detailName" column="detail_name" jdbcType="VARCHAR"/>
+        <result property="skuId" column="sku_id" jdbcType="VARCHAR"/>
+        <result property="goodDetail" column="good_detail" jdbcType="OTHER"/>
+        <result property="goodCityId" column="good_city_id" jdbcType="VARCHAR"/>
+        <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
+        <result property="ticketPrice" column="ticket_price"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="ticketDiscount" column="ticket_discount"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GoodsMap">
+        select
+        good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id,
+        good_detail, good_city_id, performance_type_id
+        from motianlun.goods
+        <where>
+            <if test="goodId != null">
+                and good_id = #{goodId}
+            </if>
+            <if test="goodName != null and goodName != ''">
+                and good_name = #{goodName}
+            </if>
+            <if test="detailUrl != null and detailUrl != ''">
+                and detail_url = #{detailUrl}
+            </if>
+            <if test="goodImg != null and goodImg != ''">
+                and good_img = #{goodImg}
+            </if>
+            <if test="lookUp != null and lookUp != ''">
+                and look_up = #{lookUp}
+            </if>
+            <if test="showTime != null">
+                and show_time = #{showTime}
+            </if>
+            <if test="showAddress != null and showAddress != ''">
+                and show_address = #{showAddress}
+            </if>
+            <if test="goodLoveNum != null and goodLoveNum != ''">
+                and good_love_num = #{goodLoveNum}
+            </if>
+            <if test="detailName != null and detailName != ''">
+                and detail_name = #{detailName}
+            </if>
+            <if test="skuId != null and skuId != ''">
+                and sku_id = #{skuId}
+            </if>
+            <if test="goodDetail != null">
+                and good_detail = #{goodDetail}
+            </if>
+            <if test="goodCityId != null and goodCityId != ''">
+                and good_city_id = #{goodCityId}
+            </if>
+            <if test="performanceTypeId != null and performanceTypeId != ''">
+                and performance_type_id = #{performanceTypeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllByHot" resultMap="GoodsMap">
+        SELECT distinct goods.good_id, goods.good_name, goods.good_img, goods.look_up, goods.sku_id,
+        goods.good_city_id,goods.show_address,goods.show_time,goods.good_love_num,
+        ticket.ticket_price,check_time.check_time,ticket.ticket_discount
+        FROM goods
+        LEFT JOIN sku
+        on goods.sku_id = sku.sku_id
+        LEFT JOIN check_time
+        on sku.check_time_id = check_time.check_time_id
+        LEFT JOIN ticket
+        on check_time.check_ticket_id = check_ticket_id
+        WHERE goods.good_city_id = #{goodCityId}
+        GROUP BY goods.good_id
+        ORDER BY look_up DESC, ticket_price
+        LIMIT 8
+    </select>
+
+    <select id="findAllByType" resultMap="GoodsMap">
+        SELECT distinct goods.good_id, goods.good_name, goods.good_img, goods.look_up, goods.sku_id,
+        goods.good_city_id,goods.show_address,goods.show_time,goods.good_love_num,
+        ticket.ticket_price,check_time.check_time,ticket.ticket_discount
+        FROM goods
+        LEFT JOIN sku
+        on goods.sku_id = sku.sku_id
+        LEFT JOIN check_time
+        on sku.check_time_id = check_time.check_time_id
+        LEFT JOIN ticket
+        on check_time.check_ticket_id = check_ticket_id
+        WHERE goods.good_city_id = #{goodCityId}
+        and performance_type_id = #{performanceTypeId}
+        GROUP BY goods.good_id
+        ORDER BY look_up DESC, ticket_price
+        LIMIT 8
+    </select>
+
+    <select id="findAllByLove" resultMap="GoodsMap">
+        SELECT distinct goods.good_id, goods.good_name, goods.good_img, goods.look_up, goods.sku_id,
+        goods.good_city_id,goods.show_address,goods.show_time,goods.good_love_num,
+        ticket.ticket_price,check_time.check_time,ticket.ticket_discount
+        FROM goods
+        LEFT JOIN sku
+        on goods.sku_id = sku.sku_id
+        LEFT JOIN check_time
+        on sku.check_time_id = check_time.check_time_id
+        LEFT JOIN ticket
+        on check_time.check_ticket_id = check_ticket_id
+        WHERE goods.good_city_id = #{goodCityId}
+        GROUP BY goods.good_id
+        ORDER BY good_love_num DESC, ticket_price
+        LIMIT 5
+    </select>
+
+    <select id="findAllByDiscount" resultMap="GoodsMap">
+        SELECT distinct goods.good_id, goods.good_name, goods.good_img, goods.look_up, goods.sku_id,
+        goods.good_city_id,goods.show_address,goods.show_time,goods.good_love_num,
+        ticket.ticket_price,check_time.check_time,ticket.ticket_discount
+        FROM goods
+        LEFT JOIN sku
+        on goods.sku_id = sku.sku_id
+        LEFT JOIN check_time
+        on sku.check_time_id = check_time.check_time_id
+        LEFT JOIN ticket
+        on check_time.check_ticket_id = check_ticket_id
+        WHERE goods.good_city_id = #{goodCityId}
+        GROUP BY goods.good_id
+        ORDER BY ticket.ticket_discount Desc
+        LIMIT 6
+    </select>
+
+    <select id="findAllByTime" resultMap="GoodsMap">
+        SELECT distinct goods.good_id, goods.good_name, goods.good_img, goods.look_up, goods.sku_id,
+        goods.good_city_id,goods.show_address,goods.show_time,goods.good_love_num,
+        ticket.ticket_price,check_time.check_time,ticket.ticket_discount
+        FROM goods
+        LEFT JOIN sku
+        on goods.sku_id = sku.sku_id
+        LEFT JOIN check_time
+        on sku.check_time_id = check_time.check_time_id
+        LEFT JOIN ticket
+        on check_time.check_ticket_id = check_ticket_id
+        WHERE goods.good_city_id = #{goodCityId}
+        AND show_time = #{showTime}
+        GROUP BY goods.good_id
+        <if test="limit != -1">
+            LIMIT 0,#{limit}
+        </if>
+    </select>
+</mapper>

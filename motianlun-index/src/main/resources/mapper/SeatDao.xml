@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.SeatDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.Seat" id="SeatMap">
+        <result property="seatId" column="seat_id" jdbcType="VARCHAR"/>
+        <result property="seatTypeId" column="seat_type_id" jdbcType="VARCHAR"/>
+        <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
+        <result property="seat" column="seat" jdbcType="VARCHAR"/>
+        <result property="seatState" column="seat_state" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SeatMap">
+        select
+          seat_id, seat_type_id, performance_type_id, seat, seat_state
+        from motianlun.seat
+        where seat_id = #{seatId}
+    </select>
+
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllByState" resultMap="SeatMap">
+        select
+        seat
+        from seat
+        where seat_state = '1'
+    </select>
+
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update motianlun.seat
+        set seat_state = replace(seat_state,"0","1")
+        <where>
+            <if test="seat != null and seat != ''">
+                and seat in (#{seat})
+            </if>
+        </where>
+    </update>
+
+
+</mapper>
