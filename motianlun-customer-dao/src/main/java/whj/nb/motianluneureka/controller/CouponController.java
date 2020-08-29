@@ -15,6 +15,7 @@ import java.util.List;
  * @since 2020-08-25 11:08:10
  */
 @RestController
+@CrossOrigin
 @RequestMapping("coupon")
 public class CouponController {
     /**

@@ -15,6 +15,7 @@ import java.util.List;
  * @since 2020-08-25 11:08:23
  */
 @RestController
+@CrossOrigin
 @RequestMapping("score")
 public class ScoreController {
     /**

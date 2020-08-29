@@ -16,6 +16,7 @@ import java.util.List;
  * @since 2020-08-27 09:01:22
  */
 @RestController
+@CrossOrigin
 @RequestMapping("city")
 public class CityController {
     /**

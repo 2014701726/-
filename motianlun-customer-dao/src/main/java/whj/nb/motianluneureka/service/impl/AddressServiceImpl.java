@@ -35,7 +35,14 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public boolean insert(Address address) {
         address.setAddressId(System.currentTimeMillis()+"");
-        return this.addressDao.insert(address)>0;
+        if("1".equals(address.getIsmrAddr())){
+            //新增地址设置为默认地址时，先将所有的地址设置不为默认地址，再将特定的地址设置为默认地址
+            this.addressDao.updateDefaultAddress();
+            return this.addressDao.insert(address)>0;
+        }else {
+            return this.addressDao.insert(address)>0;
+        }
+
     }
 
     /**
@@ -46,7 +53,14 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     public void update(Address address) {
-        this.addressDao.update(address);
+        if("1".equals(address.getIsmrAddr())){
+            //需要修改默认地址时，先将所有的地址设置不为默认地址，再将特定的地址设置为默认地址
+            this.addressDao.updateDefaultAddress();
+            this.addressDao.update(address);
+        }else {
+            this.addressDao.update(address);
+        }
+
     }
 
     /**

@@ -18,16 +18,16 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AddressMap">
         SELECT
-	a.address_id,customer_name,phone,province,city,AREA,detail,ismr_addr
+	a.address_id,a.customer_name,a.phone,a.province,a.city,a.AREA,a.detail,a.ismr_addr
     FROM
 	address a
-    JOIN customer c ON a.customer_id=c.customer_id AND c.customer_id=#{customerId};
+    JOIN customer c ON a.customer_id=c.customer_id AND c.customer_id=#{customerId} ORDER BY a.ismr_addr DESC;
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="addressId" useGeneratedKeys="true">
-        insert into motianlun.address(address_id,customer_name, phone, province, city, AREA, detail, ismr_addr)
-        values (#{addressId},#{customerName}, #{phone}, #{province}, #{city}, #{area}, #{detail}, #{ismrAddr})
+        insert into motianlun.address(address_id,customer_name, phone, province, city, AREA, detail, ismr_addr,customer_id)
+        values (#{addressId},#{customerName}, #{phone}, #{province}, #{city}, #{area}, #{detail}, #{ismrAddr},#{customerId})
     </insert>
 
     <!--通过主键修改数据-->
@@ -56,7 +56,17 @@
                 ismr_addr = #{ismrAddr},
             </if>
         </set>
+
         where address_id = #{addressId}
+        AND customer_id=#{customerId};
+    </update>
+
+
+    <update id="updateDefaultAddress">
+        UPDATE address
+        SET ismr_addr = 0
+        WHERE ismr_addr=1;
+
     </update>
 
     <!--通过主键删除-->

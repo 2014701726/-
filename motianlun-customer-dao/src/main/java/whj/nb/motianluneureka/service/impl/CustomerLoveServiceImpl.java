@@ -44,6 +44,7 @@ public class CustomerLoveServiceImpl implements CustomerLoveService {
      */
     @Override
     public boolean insert(CustomerLove customerLove) {
+        customerLove.setCustomerLoveId(System.currentTimeMillis()+"");
         return this.customerLoveDao.insert(customerLove)>0;
     }
 

@@ -40,6 +40,13 @@ public interface AddressDao {
     void update(Address address);
 
     /**
+     * 修改默认地址
+     *
+     * @return 影响行数
+     */
+    void updateDefaultAddress();
+
+    /**
      * 通过主键删除数据
      *
      * @param addressId 主键

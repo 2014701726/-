@@ -49,8 +49,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="customerLoveId" useGeneratedKeys="true">
-        insert into motianlun.customer_love(customer_id, good_id)
-        values (#{customerId}, #{goodId})
+        insert into motianlun.customer_love(customer_love_id,customer_id, good_id)
+        values (#{customerLoveId},#{customerId}, #{goodId})
     </insert>
 
 
