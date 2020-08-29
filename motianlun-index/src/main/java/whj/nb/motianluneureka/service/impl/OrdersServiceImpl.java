@@ -47,6 +47,10 @@ public class OrdersServiceImpl implements OrdersService {
         ordersDao.insert(orders);
     }
 
+    @Override
+    public void updateById(String orderId, Integer k) {
+        ordersDao.updateById(orderId,k);
+    }
 
 
 }

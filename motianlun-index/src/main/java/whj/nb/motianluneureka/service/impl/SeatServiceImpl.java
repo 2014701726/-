@@ -42,7 +42,6 @@ public class SeatServiceImpl implements SeatService {
     }
 
 
-
     /**
      * 修改数据
      *
@@ -53,9 +52,9 @@ public class SeatServiceImpl implements SeatService {
     public int update(Seat seat) {
         String[] split = seat.getSeat().split(",");
         int j = 0;
-        synchronized (this){
+        synchronized (this) {
             for (String s : split) {
-                String key = "seat_"+s;
+                String key = "seat_" + s;
                 Gson gson = new Gson();
                 //避免跑的人和第二次访问的人也排队，所以需要在锁的外层再加一个判断
                 //双重检测锁
@@ -65,38 +64,48 @@ public class SeatServiceImpl implements SeatService {
                     synchronized (this) {
                         json = stringRedisTemplate.boundValueOps(key).get();
                         if (json == null || "".equals(json)) {
-                            seatDao.update(seat);
-                            Seat seat1 = seatDao.queryById(s);
-                            //3、缓存没有数据，则查询数据库
-                            //此方法中放的就是访问数据库的内容
-                            if(seat1 instanceof List){
-                                List list = (List) seat1;
-                                if (list.isEmpty()) {//当缓存的值为空的时候，设置空值的过期时间
-                                    String toJson = gson.toJson(seat1);
-                                    stringRedisTemplate.boundValueOps(key).set(toJson,1, TimeUnit.HOURS);
-                                } else { //不为空则正常缓存
-                                    String toJson = gson.toJson(seat1);
-                                    stringRedisTemplate.boundValueOps(key).set(toJson);
-                                }
-                            } else if (seat1 == null ) { //当缓存的值为空的时候，设置空值的过期时间
-                                //4、将数据库查询到的数据写入缓存
-                                String toJson = gson.toJson(seat1);
-                                stringRedisTemplate.boundValueOps(key).set(toJson,1, TimeUnit.HOURS);
-                            } else {//不为空则正常缓存
-                                String toJson = gson.toJson(seat1);
-                                stringRedisTemplate.boundValueOps(key).set(toJson);
-                            }
-                            j=1;
+                            j = 1;
                         }
                     }
-                }else {
+                } else {
                     //2、缓存有数据，则直接返回给controller
                     return 2;
                 }
 
             }
         }
+        if (j == 1) {
 
+            for (String s : split) {
+                String key = "seat_" + s;
+                Gson gson = new Gson();
+                Seat seat1 = seatDao.queryById(s);
+                if (seat1 instanceof List) {
+                    List list = (List) seat1;
+                    if (list.isEmpty()) {//当缓存的值为空的时候，设置空值的过期时间
+                        String toJson = gson.toJson(seat1);
+                        stringRedisTemplate.boundValueOps(key).set(toJson, 1, TimeUnit.HOURS);
+                    } else { //不为空则正常缓存
+                        String toJson = gson.toJson(seat1);
+                        stringRedisTemplate.boundValueOps(key).set(toJson);
+                    }
+                } else if (seat1 == null) { //当缓存的值为空的时候，设置空值的过期时间
+                    //4、将数据库查询到的数据写入缓存
+                    String toJson = gson.toJson(seat1);
+                    stringRedisTemplate.boundValueOps(key).set(toJson, 1, TimeUnit.HOURS);
+                } else {//不为空则正常缓存
+                    String toJson = gson.toJson(seat1);
+                    stringRedisTemplate.boundValueOps(key).set(toJson);
+                }
+            }
+            String send = "";
+            for (String s1 : split) {
+                send+="\""+s1+"\",";
+            }
+            send = send.substring(0, send.length()-1 );
+            seat.setSeat(send);
+            seatDao.update(seat);
+        }
         return j;
 
     }

@@ -50,4 +50,11 @@ public interface OrdersDao {
      */
     int deleteById(String orderId);
 
+    /**
+     * 通过订单ID修改订单状态
+     * @param orderId
+     * @param k
+     */
+    void updateById(@Param("orderId") String orderId,@Param("k") Integer k);
+
 }

@@ -7,7 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class MotianlunEurekaApplicationTests {
 
     @Test
-    void contextLoads() {
+    void contextLoads(String msg) {
+        System.out.println(msg);
+
+
     }
 
 }

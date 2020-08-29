@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Orders)实体类
  *
  * @author makejava
- * @since 2020-08-27 09:49:56
+ * @since 2020-08-28 19:15:39
  */
 public class Orders implements Serializable {
-    private static final long serialVersionUID = -72180853416548116L;
+    private static final long serialVersionUID = -36177630475121860L;
     /**
      * 订单ID
      */
@@ -54,32 +54,31 @@ public class Orders implements Serializable {
      * 座位
      */
     private String seat;
-
     /**
-     * 姓名
+     * 取票人姓名
      */
     private String takerName;
-
     /**
-     * 手机号
+     * 取票人手机号
      */
     private String takerPhone;
+    /**
+     * 价格
+     */
+    private Object price;
+    /**
+     * 数量
+     */
+    private Integer ticketNum;
+    /**
+     * 支付状态（0：为支付，1：已支付）
+     */
+    private String iszf;
+    /**
+     * 0：已下单，1：已失效
+     */
+    private String state;
 
-    public String getTakerName() {
-        return takerName;
-    }
-
-    public void setTakerName(String takerName) {
-        this.takerName = takerName;
-    }
-
-    public String getTakerPhone() {
-        return takerPhone;
-    }
-
-    public void setTakerPhone(String takerPhone) {
-        this.takerPhone = takerPhone;
-    }
 
     public String getOrderId() {
         return orderId;
@@ -167,6 +166,54 @@ public class Orders implements Serializable {
 
     public void setSeat(String seat) {
         this.seat = seat;
+    }
+
+    public String getTakerName() {
+        return takerName;
+    }
+
+    public void setTakerName(String takerName) {
+        this.takerName = takerName;
+    }
+
+    public String getTakerPhone() {
+        return takerPhone;
+    }
+
+    public void setTakerPhone(String takerPhone) {
+        this.takerPhone = takerPhone;
+    }
+
+    public Object getPrice() {
+        return price;
+    }
+
+    public void setPrice(Object price) {
+        this.price = price;
+    }
+
+    public Integer getTicketNum() {
+        return ticketNum;
+    }
+
+    public void setTicketNum(Integer ticketNum) {
+        this.ticketNum = ticketNum;
+    }
+
+    public String getIszf() {
+        return iszf;
+    }
+
+    public void setIszf(String iszf) {
+        this.iszf = iszf;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
 }

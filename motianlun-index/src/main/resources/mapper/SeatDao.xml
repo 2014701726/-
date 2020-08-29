@@ -33,12 +33,9 @@
     <!--通过主键修改数据-->
     <update id="update">
         update motianlun.seat
-        set seat_state = replace(seat_state,"0","1")
-        <where>
-            <if test="seat != null and seat != ''">
-                and seat in (#{seat})
-            </if>
-        </where>
+        set seat_state = "1"
+        where seat in (${seat})
+
     </update>
 
 

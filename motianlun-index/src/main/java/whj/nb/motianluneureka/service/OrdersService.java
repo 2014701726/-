@@ -1,5 +1,6 @@
 package whj.nb.motianluneureka.service;
 
+import org.apache.ibatis.annotations.Param;
 import whj.nb.motianluneureka.entity.Orders;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public interface OrdersService {
      */
     void insert(Orders orders);
 
-
+    /**
+     * 通过订单ID修改订单状态
+     * @param orderId
+     * @param k
+     */
+    void updateById(@Param("orderId") String orderId, @Param("k") Integer k);
 
 }
