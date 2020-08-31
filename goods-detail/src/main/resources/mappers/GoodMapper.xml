@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.goodsdetail.dao.GoodDao">
+    <resultMap id="goodMap" type="whj.nb.goodsdetail.bean.Good">
+        <id column="good_id" property="good_id"></id>
+        <result column="good_name" property="good_name"></result>
+        <result column="good_price" property="good_price"></result>
+        <result column="detail_url" property="detail_url"></result>
+        <result column="good_img" property="good_img"></result>
+        <result column="look_up" property="look_up"></result>
+        <result column="show_time" property="show_time"></result>
+        <result column="show_address" property="show_address"></result>
+        <result column="good_love_num" property="good_love_num"></result>
+        <result column="detail_name" property="detail_name"></result>
+        <result column="sku_id" property="sku_id"></result>
+        <result column="good_detail" property="good_detail"></result>
+        <result column="good_city_id" property="good_city_id"></result>
+        <result column="performance_type_id" property="performance_type_id"></result>
+        <result column="ticket_status" property="ticket_status"></result>
+        <result column="isSeat" property="isSeat"></result>
+
+</resultMap>
+
+
+    <select id="findByid" resultMap="goodMap">
+        select * from goods where good_id =#{id}
+    </select>
+
+    <select id="reGoodList" resultMap="goodMap" resultSets="java.util.List">
+        SELECT * FROM goods where good_city_id =#{id} limit 6;
+    </select>
+    <select id="findAllGoods" resultMap="goodMap" resultSets="java.util.List">
+        SELECT * FROM goods;
+    </select>
+
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.goodsdetail.dao.CheckTimeDao">
+
+    <resultMap id="CheckTimeMap" type="whj.nb.goodsdetail.bean.CheckTime">
+        <id column="id" property="id"></id>
+        <result column="check_time_id" property="check_time_id"></result>
+        <result column="check_time" property="check_time"></result>
+        <result column="check_ticket_id" property="check_ticket_id"></result>
+        <collection property="ticketList" column="check_time_id" select="whj.nb.goodsdetail.dao.TicketDao.findByid"></collection>
+        </resultMap>
+
+
+
+    <select id="findByid" resultMap="CheckTimeMap">
+
+ select DISTINCT check_time.check_time, check_time.check_time_id from check_time where check_time.check_time_id in
+(select sku.check_time_id from sku where  sku.sku_id in
+(select goods.sku_id from goods where  goods.good_id=#{id}))
+
+    </select>
+
+
+
+</mapper>

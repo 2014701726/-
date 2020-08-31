@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.nbmanager.dao.GoodDao">
+
+
+    <insert id="addGood" parameterType="whj.nb.nbmanager.bean.Good">
+        insert into goods(good_id,good_name,good_price,detail_url,good_img,look_up,
+show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id
+,performance_type_id
+,ticket_status)values(#{good_id},#{good_name},#{good_price},#{detail_url},#{good_img},#{look_up},
+#{show_time},#{show_address},#{good_love_num},#{detail_name},#{sku_id},#{good_detail},#{good_city_id}
+,#{performance_type_id}
+,#{ticket_status})
+    </insert>
+</mapper>

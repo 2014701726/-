@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.nbmanager.dao.VipDao">
+
+    <resultMap id="vipMap" type="whj.nb.nbmanager.bean.User">
+        <id column="customer_id" property="customer_id"></id>
+        <result column="customer_phone" property="customer_phone"></result>
+
+        <result column="isvip" property="isvip"></result>
+    </resultMap>
+
+
+    <select id="findAllUser" resultMap="vipMap">
+        select customer_id,customer_phone,isvip from customer
+    </select>
+
+    <update id="setVip" parameterType="whj.nb.nbmanager.bean.User">
+        update customer
+        <set>
+            isvip=1,
+        </set>
+        where customer_id=#{userId}
+    </update>
+
+    <update id="delVip" parameterType="whj.nb.nbmanager.bean.User">
+        update customer
+        <set>
+            isvip=0,
+        </set>
+        where customer_id=#{userId}
+    </update>
+
+    <insert id="addGood" parameterType="whj.nb.nbmanager.bean.Good">
+        insert into goods(good_id,good_name,good_price,detail_url,good_img,look_up,
+show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id
+,performance_type_id
+,ticket_status)values(#{good_id},#{good_name},#{good_price},#{detail_url},#{good_img},#{look_up},
+#{show_time},#{show_address},#{good_love_num},#{detail_name},#{sku_id},#{good_detail},#{good_city_id}
+,#{performance_type_id}
+,#{ticket_status})
+    </insert>
+</mapper>
