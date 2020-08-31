@@ -1,4 +1,4 @@
-package whj.nb.motianluneureka;
+package whj.nb.performance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,5 +10,6 @@ public class MotianlunEurekaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MotianlunEurekaApplication.class, args);
+
     }
 }

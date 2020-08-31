@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.performance.dao.GoodsDao">
+
+    <resultMap type="whj.nb.performance.entity.Goods" id="GoodMap">
+        <result property="goodId" column="good_id" jdbcType="INTEGER"/>
+        <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
+        <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>
+        <result property="goodImg" column="good_img" jdbcType="VARCHAR"/>
+        <result property="lookUp" column="look_up" jdbcType="INTEGER"/>
+        <result property="showTime" column="show_time" jdbcType="OTHER"/>
+        <result property="showAddress" column="show_address" jdbcType="VARCHAR"/>
+        <result property="goodLoveNum" column="good_love_num" jdbcType="INTEGER"/>
+        <result property="ticketStatus" column="ticket_status" jdbcType="INTEGER"/>
+        <result property="goodCityId" column="good_city_id" jdbcType="VARCHAR"/>
+        <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+
+    <!--查询指定行数据-->
+    <select id="queryAllgg" resultMap="GoodMap">
+        select
+          good_id, good_name, look_up, show_time, show_address,
+         detail_name, sku_id, good_detail, good_city_id, performance_type_id
+        from goods
+
+    </select>
+
+
+</mapper>

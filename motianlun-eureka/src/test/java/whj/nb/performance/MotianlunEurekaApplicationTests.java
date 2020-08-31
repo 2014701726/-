@@ -1,4 +1,4 @@
-package whj.nb.motianluneureka;
+package whj.nb.performance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
