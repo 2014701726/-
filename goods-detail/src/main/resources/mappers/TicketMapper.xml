@@ -13,11 +13,10 @@
         <result column="seat_id" property="seat_id"></result>
      </resultMap>
 
-    <select id="findByid" resultMap="TicketMap">
-        select * from ticket where ticket.check_ticked_id in
-(select check_time.check_ticket_id from check_time where check_time.check_time_id in
-(select sku.check_time_id from sku where  sku.sku_id in
-(select goods.sku_id from goods where  goods.good_id=#{id})))
+    <select id="findByid" resultMap="TicketMap" resultSets="java.util.List">
+
+select * from ticket where ticket.check_ticked_id in
+(select check_time.check_ticket_id from check_time where check_time.check_time_id =#{id})
     </select>
     <select id="findTicketByid" resultMap="TicketMap">
         select * from ticket where check_ticked_id =#{id}

@@ -7,7 +7,8 @@
         <result column="check_time_id" property="check_time_id"></result>
         <result column="check_time" property="check_time"></result>
         <result column="check_ticket_id" property="check_ticket_id"></result>
-    </resultMap>
+        <collection property="ticketList" column="check_time_id" select="whj.nb.goodsdetail.dao.TicketDao.findByid"></collection>
+        </resultMap>
 
 
 

@@ -11,6 +11,7 @@ public class Good {
     private String good_id;
     private String good_name;
     private String detail_url;
+    private String good_price;
     private String good_img;
     private Integer look_up;
     private String show_time;
@@ -21,5 +22,7 @@ public class Good {
     private String good_detail;
     private Integer good_city_id;
     private String performance_type_id;
+    private String ticket_status;
+    private String isSeat;
 
 }

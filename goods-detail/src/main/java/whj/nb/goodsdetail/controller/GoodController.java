@@ -42,5 +42,20 @@ public class GoodController {
 
     }
 
+        @RequestMapping("/regoodlist/{id}")
+        public ResultVO toGoodSet(@PathVariable("id") String id){
+
+            List<Good> goods = goodService.reGoodList(id);
+            System.out.println(goods);
+            return new ResultVO<List<Good>>(1,"success",goods);
+        }
+
+        @RequestMapping("allGoods")
+        public ResultVO toFindAllGoods(){
+            List<Good> allGoods = goodService.findAllGoods();
+            System.out.println(allGoods);
+            return new ResultVO<List<Good>>(1,"success",allGoods);
+        }
+
 
 }

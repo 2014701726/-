@@ -1,9 +1,10 @@
-package whj.nb.goodsdetail.service.Impl;
+package whj.nb.nbmanager.service.Impl;
 
 import org.springframework.stereotype.Service;
-import whj.nb.goodsdetail.bean.Good;
-import whj.nb.goodsdetail.dao.GoodDao;
-import whj.nb.goodsdetail.service.GoodService;
+import whj.nb.nbmanager.bean.Good;
+import whj.nb.nbmanager.dao.GoodDao;
+import whj.nb.nbmanager.service.GoodService;
+
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,7 +25,7 @@ public class GoodserviceImpl implements GoodService {
     }
 
     @Override
-    public List<Good> findAllGoods() {
-        return goodDao.findAllGoods();
+    public Integer addGood(Good good) {
+        return goodDao.addGood(good);
     }
 }

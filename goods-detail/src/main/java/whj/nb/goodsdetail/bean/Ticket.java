@@ -15,4 +15,5 @@ public class Ticket {
     private String ticket_discount;
     private String seat_id;
 
+
 }
