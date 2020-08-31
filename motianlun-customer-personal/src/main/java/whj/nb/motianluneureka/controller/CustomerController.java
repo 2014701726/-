@@ -1,16 +1,20 @@
 package whj.nb.motianluneureka.controller;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import whj.nb.motianluneureka.config.CustomerVO;
 import whj.nb.motianluneureka.entity.Customer;
 import whj.nb.motianluneureka.config.AliyunConfig;
 import whj.nb.motianluneureka.service.CustomerService;
 import whj.nb.vo.ResultVO;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -56,25 +60,50 @@ public class CustomerController {
 
     @RequestMapping("/{telnum}/{msg}")
     public ResultVO login(@PathVariable("telnum") String telnum,@PathVariable("msg") String msg){
+        Customer customer1 = new Customer();
+        Customer customer = customerService.queryById(telnum);
+        String customerId = null;
         try {
-            Customer customer = customerService.queryById(telnum);
             if(customer==null){
-                customer.setCustomerId(System.currentTimeMillis()+"");
-                customer.setCustomerPhone(telnum);
-                customerService.insert(customer);
-            }
-            if (msg.equals(code)) {
-                String customerPhone = customer.getCustomerPhone();
-                String customerId = customer.getCustomerId();
-                stringRedisTemplate.opsForValue().set(customerPhone,customerId,36000, TimeUnit.SECONDS);
-                return new ResultVO(0, "login success", null);
+                customer1.setCustomerId(System.currentTimeMillis()+"");
+                customer1.setCustomerPhone(telnum);
+                customerService.insert(customer1);
+                 customerId = customer1.getCustomerId();
             }else {
-                return new ResultVO(1,"fail",null);
+                 customerId = customer.getCustomerId();
             }
+            if (msg!=null&&msg!=""){
+                if (msg.equals(code)) {
+
+                    /**
+                     * setSubject 设置用户信息
+                     * setId  设置用ID
+                     * setIssuedAt  设置token的创建时间
+                     * setExpiration    设置过期时间
+                     * signWith 加密方式及key
+                     */
+                    String token = Jwts.builder()
+                            .setSubject(telnum)
+                            .setId(customerId)
+                            .setIssuedAt(new Date())
+                            .setExpiration(new Date(System.currentTimeMillis()+60*1000))
+                            .signWith(SignatureAlgorithm.HS256,"motianlun")
+                            .compact();
+                    stringRedisTemplate.opsForValue().set(telnum+"@loginToken",token,36000, TimeUnit.SECONDS);
+                    stringRedisTemplate.opsForValue().set(telnum,customerId,36000, TimeUnit.SECONDS);
+                    CustomerVO customerVO = new CustomerVO(customerId, telnum, token);
+                    return new ResultVO(0, "login success", customerVO);
+                }
+                else {
+                    return new ResultVO(1,"fail",null);
+                }
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             return new ResultVO(1,"fail",null);
         }
+        return null;
     }
 
 }
