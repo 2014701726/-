@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.SeatTypeDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.SeatType" id="SeatTypeMap">
+        <result property="seatTypeId" column="seat_type_id" jdbcType="VARCHAR"/>
+        <result property="seatType" column="seat_type" jdbcType="VARCHAR"/>
+        <result property="seatTypeNum" column="seat_type_num" jdbcType="VARCHAR"/>
+        <result property="seatDiscount" column="seat_discount" jdbcType="OTHER"/>
+    </resultMap>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SeatTypeMap">
+        select
+        seat_type_id, seat_type, seat_type_num, seat_discount
+        from motianlun.seat_type
+    </select>
+
+
+
+</mapper>

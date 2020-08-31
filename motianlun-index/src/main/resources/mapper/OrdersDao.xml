@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.OrdersDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.Orders" id="OrdersMap">
+        <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
+        <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+        <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="addressId" column="address_id" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="ticketId" column="ticket_id" jdbcType="VARCHAR"/>
+        <result property="couponId" column="coupon_id" jdbcType="VARCHAR"/>
+        <result property="scoreId" column="score_id" jdbcType="VARCHAR"/>
+        <result property="checkTimeId" column="check_time_id" jdbcType="VARCHAR"/>
+        <result property="seat" column="seat" jdbcType="VARCHAR"/>
+        <result property="takerName" column="taker_name"/>
+        <result property="takerPhone" column="taker_phone"/>
+        <result property="price" column="price"/>
+        <result property="ticketNum" column="ticket_num"/>
+        <result property="iszf" column="iszf"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrdersMap">
+        select
+          order_id, good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id, check_time_id, seat,taker_name,taker_phone
+          ,price,ticket_num,iszf,state
+        from motianlun.orders
+        where order_id = #{orderId}
+    </select>
+
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrdersMap">
+        select
+        order_id, good_id, customer_id, create_time, address_id, remark, ticket_id, coupon_id, score_id, check_time_id,
+        seat,taker_name,taker_phone,price,ticket_num
+        from motianlun.orders
+        <where>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="goodId != null and goodId != ''">
+                and good_id = #{goodId}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                and customer_id = #{customerId}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="addressId != null and addressId != ''">
+                and address_id = #{addressId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="ticketId != null and ticketId != ''">
+                and ticket_id = #{ticketId}
+            </if>
+            <if test="couponId != null and couponId != ''">
+                and coupon_id = #{couponId}
+            </if>
+            <if test="scoreId != null and scoreId != ''">
+                and score_id = #{scoreId}
+            </if>
+            <if test="checkTimeId != null and checkTimeId != ''">
+                and check_time_id = #{checkTimeId}
+            </if>
+            <if test="seatId != null and seatId != ''">
+                and seat = #{seat}
+            </if>
+            <if test="takerName != null and takerName != ''">
+                and taker_name = #{takerName}
+            </if>
+            <if test="takerPhone != null and takerPhone != ''">
+                and taker_phone = #{takerPhone}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+<!--    <insert id="insert">-->
+<!--        insert into motianlun.orders(order_id,good_id, customer_id, create_time,   coupon_id,  check_time_id, seat,taker_name,taker_phone,price,ticket_num)-->
+<!--        values (#{orderId},#{goodId}, #{customerId}, #{createTime},  #{couponId},  #{checkTimeId}, #{seat},#{takerName},#{takerPhone},#{price},#{ticketNum})-->
+<!--    </insert>-->
+
+    <insert id="insert">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodId != null">good_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="addressId != null">address_id,</if>
+            <if test="remark != null">remark,</if>
+            <if test="ticketId != null">ticket_id,</if>
+            <if test="couponId != null">coupon_id,</if>
+            <if test="scoreId != null">score_id,</if>
+            <if test="checkTimeId != null">check_time_id,</if>
+            <if test="seat != null">seat,</if>
+            <if test="takerName != null">taker_name,</if>
+            <if test="takerPhone != null">taker_phone,</if>
+            <if test="price != null">price,</if>
+            <if test="ticketNum != null">ticket_num,</if>
+            order_id,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodId != null">#{goodId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="addressId != null">#{addressId},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="ticketId != null">#{ticketId},</if>
+            <if test="couponId != null">#{couponId},</if>
+            <if test="scoreId != null">#{scoreId},</if>
+            <if test="checkTimeId != null">#{checkTimeId},</if>
+            <if test="seat != null">#{seat},</if>
+            <if test="takerName != null">#{takerName},</if>
+            <if test="takerPhone != null">#{takerPhone},</if>
+            <if test="price != null">#{price},</if>
+            <if test="ticketNum != null">#{ticketNum},</if>
+            #{orderId},
+        </trim>
+    </insert>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from motianlun.orders where order_id = #{orderId}
+    </delete>
+
+    <update id="updateById">
+        update orders
+        <set>
+            <if test="k == 1">
+                iszf = "1",
+            </if>
+            <if test="k == 2">
+                state = "1",
+            </if>
+        </set>
+        where order_id = #{orderId}
+    </update>
+</mapper>
