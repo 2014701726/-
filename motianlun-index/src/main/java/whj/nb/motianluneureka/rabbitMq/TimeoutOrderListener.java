@@ -23,6 +23,8 @@ public class TimeoutOrderListener {
         if (orders.getIszf().equals("0")){
             //未支付，则修改订单状态为过期
             ordersService.updateById(orderId,2);
+        }else {
+            return;
         }
     }
 

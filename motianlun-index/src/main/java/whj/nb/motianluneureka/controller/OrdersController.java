@@ -33,26 +33,41 @@ public class OrdersController {
     @RequestMapping("add")
     public ResultVO orderAdd(@RequestBody Orders orders){
         ResultVO<Orders> resultVO = new ResultVO<>();
-        try {
-            Seat seat = new Seat();
-            seat.setSeat(orders.getSeat());
-            int i = seatService.update(seat);
-            if (i == 1){
+        if (orders.getSeat() == null){
+            try {
                 ordersService.insert(orders);
                 //下单成功后把订单号发送到MQ队列
                 amqpTemplate.convertAndSend("delay_exchange","k1",orders.getOrderId());
                 resultVO.setCode(0);
                 resultVO.setMsg("订单提交成功");
                 resultVO.setT(orders);
-            }
-            if (i == 2){
+            }catch (Exception e){
+                e.printStackTrace();
                 resultVO.setCode(1);
-                resultVO.setMsg("订单提交失败，可能座位已被抢");
+                resultVO.setMsg("失败");
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            resultVO.setCode(2);
-            resultVO.setMsg("网络异常，请刷新");
+        }else {
+            try {
+                Seat seat = new Seat();
+                seat.setSeat(orders.getSeat());
+                int i = seatService.update(seat);
+                if (i == 1){
+                    ordersService.insert(orders);
+                    //下单成功后把订单号发送到MQ队列
+                    amqpTemplate.convertAndSend("delay_exchange","k1",orders.getOrderId());
+                    resultVO.setCode(0);
+                    resultVO.setMsg("订单提交成功");
+                    resultVO.setT(orders);
+                }
+                if (i == 2){
+                    resultVO.setCode(1);
+                    resultVO.setMsg("订单提交失败，可能座位已被抢");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                resultVO.setCode(2);
+                resultVO.setMsg("网络异常，请刷新");
+            }
         }
         return resultVO;
     }
