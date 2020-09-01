@@ -18,6 +18,14 @@ public interface GoodsDao {
 
 
     /**
+     * 查详情
+     * @param goodId
+     * @return
+     */
+    Goods findById(String goodId);
+
+
+    /**
      * 通过实体作为筛选条件查询
      *
      * @param goods 实例对象

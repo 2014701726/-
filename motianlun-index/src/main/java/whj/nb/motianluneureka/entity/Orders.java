@@ -80,6 +80,34 @@ public class Orders implements Serializable {
     private String state;
 
 
+    private Goods goods;
+    private CheckTime checkTime;
+    private Ticket ticket;
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public CheckTime getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(CheckTime checkTime) {
+        this.checkTime = checkTime;
+    }
+
     public String getOrderId() {
         return orderId;
     }

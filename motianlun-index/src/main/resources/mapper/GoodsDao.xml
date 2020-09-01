@@ -21,6 +21,11 @@
         <result property="ticketDiscount" column="ticket_discount"/>
     </resultMap>
 
+    <select id="findById" resultMap="GoodsMap">
+        select good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id,
+        good_detail, good_city_id, performance_type_id
+        from goods where good_id = #{goodId}
+    </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="GoodsMap">
