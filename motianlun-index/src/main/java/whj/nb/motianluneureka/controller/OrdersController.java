@@ -2,6 +2,8 @@ package whj.nb.motianluneureka.controller;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import whj.nb.motianluneureka.entity.Goods;
 import whj.nb.motianluneureka.entity.Orders;
 import whj.nb.motianluneureka.entity.Seat;
 import whj.nb.motianluneureka.service.OrdersService;
@@ -9,6 +11,7 @@ import whj.nb.motianluneureka.service.SeatService;
 import whj.nb.vo.ResultVO;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 /**
  * (Orders)表控制层
@@ -29,6 +32,8 @@ public class OrdersController {
     private SeatService seatService;
     @Resource
     private AmqpTemplate amqpTemplate;
+    @Resource
+    private RestTemplate restTemplate;
 
     @RequestMapping("add")
     public ResultVO orderAdd(@RequestBody Orders orders){
@@ -82,6 +87,20 @@ public class OrdersController {
         }catch (Exception e){
             resultVO.setCode(1);
             resultVO.setMsg("订单修改支付异常");
+        }
+        return resultVO;
+    }
+
+    @RequestMapping("detail/{orderId}")
+    public ResultVO detail(@PathVariable String orderId){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        try {
+            Orders orders = ordersService.queryById(orderId);
+            resultVO.setCode(0);
+            resultVO.setT(orders);
+        }catch (Exception e){
+            resultVO.setCode(1);
+            resultVO.setMsg("网络异常或者不存在");
         }
         return resultVO;
     }

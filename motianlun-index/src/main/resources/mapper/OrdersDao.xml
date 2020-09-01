@@ -20,6 +20,9 @@
         <result property="ticketNum" column="ticket_num"/>
         <result property="iszf" column="iszf"/>
         <result property="state" column="state"/>
+        <collection property="goods" column="good_id" select="whj.nb.motianluneureka.dao.GoodsDao.findById"/>
+        <collection property="checkTime" column="ticket_id" select="whj.nb.motianluneureka.dao.CheckTimeDao.queryById"/>
+        <collection property="ticket" column="ticket_id" select="whj.nb.motianluneureka.dao.TicketDao.queryById"/>
     </resultMap>
 
     <!--查询单个-->
