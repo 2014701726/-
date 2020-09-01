@@ -28,4 +28,14 @@ public class GoodserviceImpl implements GoodService {
     public Integer addGood(Good good) {
         return goodDao.addGood(good);
     }
+
+    @Override
+    public Integer delGood(String goodId) {
+        return goodDao.delGood(goodId);
+    }
+
+    @Override
+    public Integer updateGood(Good good) {
+        return goodDao.updateGood(good);
+    }
 }
