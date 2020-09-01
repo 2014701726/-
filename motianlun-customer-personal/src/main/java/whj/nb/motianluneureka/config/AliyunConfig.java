@@ -81,20 +81,47 @@ public class AliyunConfig {
         return code;
     }
 
+    public String order(String takerPhone,String takerName,String orderId,String time,String ticket,Integer ticketNum,String seat,Double price)throws ClientException, InterruptedException {
+        {
+            //设置过期时间
+            System.setProperty("sun.net.client.defaultConnectTimeout", "300000");
+            System.setProperty("sun.net.client.defaultReadTimeout", "300000");
+            try {
+                //初始化acsClient
+                IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
+                DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+                IAcsClient acsClient = new DefaultAcsClient(profile);
+                SendSmsRequest request = new SendSmsRequest();
+                request.setPhoneNumbers(takerPhone);
+                //短信签名
+                request.setSignName("摩天轮");
+                //短信模板
+                request.setTemplateCode("SMS_200724097");
+                //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
+                request.setTemplateParam("{\"name\":\"" + takerName + "\"}");
+                request.setTemplateParam("{\"orderId\":\"" + orderId + "\"}");
+                request.setTemplateParam("{\"time\":\"" + time + "\"}");
+                request.setTemplateParam("{\"ticket\":\"" + ticket + "\"}");
+                request.setTemplateParam("{\"ticketNum\":\"" + ticketNum + "\"}");
+                request.setTemplateParam("{\"seat\":\"" + seat + "\"}");
+                request.setTemplateParam("{\"price\":\"" + price + "\"}");
+                //orderId-其他；time-演出时间；ticket-演出名称；ticketNum-票数；seat-其他；price-其他；
+                //hint 此处可能会抛出异常，注意catch
+                SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+                if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
+                    System.out.println("短信发送成功！");
+                } else {
+                    System.out.println("短信发送失败！");
+                }
+            } catch (ClientException e) {
+                e.printStackTrace();
+            }
+            return null;
 
-    public static void main(String[] args) throws ClientException, InterruptedException {
-        /*setNewcode();
-        String code = Integer.toString(getNewcode());
-        System.out.println("发送的验证码为：" + code);
-        //发短信
-        // 填写你需要测试的手机号码
-        SendSmsResponse response = sendSms("18171870407", code,"SMS_200710208");
-        System.out.println("短信接口返回的数据----------------");
-        System.out.println("Code=" + response.getCode());
-        System.out.println("Message=" + response.getMessage());
-        System.out.println("RequestId=" + response.getRequestId());*/
-        System.out.println((int)((Math.random()*9+1)*100000));
+        }
+
+
     }
-
-
 }
+
+
