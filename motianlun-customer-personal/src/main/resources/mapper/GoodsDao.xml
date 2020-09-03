@@ -15,13 +15,14 @@
         <result property="skuId" column="sku_id" jdbcType="VARCHAR"/>
         <result property="goodDetail" column="good_detail" jdbcType="VARCHAR"/>
         <result property="goodCityId" column="good_city_id" jdbcType="INTEGER"/>
+        <result property="goodPrice" column="good_price" jdbcType="INTEGER"/>
         <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="GoodsMap">
         select
-          good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id
+          good_id, good_name, detail_url,good_price, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id
         from motianlun.goods
         where good_id = #{goodId}
     </select>
@@ -29,7 +30,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="GoodsMap">
         select
-          good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id
+          good_id, good_name, detail_url,good_price, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id, good_detail, good_city_id, performance_type_id
         from motianlun.goods
         limit #{offset}, #{limit}
     </select>
@@ -37,7 +38,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="GoodsMap">
         select
-        good_id, good_name, detail_url, good_img, look_up, show_time, show_address, good_love_num, detail_name, sku_id,
+        good_id, good_name, detail_url, good_img, good_price,look_up, show_time, show_address, good_love_num, detail_name, sku_id,
         good_detail, good_city_id, performance_type_id
         from motianlun.goods
         <where>

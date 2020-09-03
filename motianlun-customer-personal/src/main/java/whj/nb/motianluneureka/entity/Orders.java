@@ -16,8 +16,12 @@ public class Orders {
   private String seatId;
   private String takerName;
   private String takerPhone;
+  private String iszf;
+  private String state;
   private Goods goods;
   private Ticket ticket;
+  private Integer ticketNum;
+  private Double price;
 
   public String getOrderId() {
     return orderId;
@@ -145,5 +149,37 @@ public class Orders {
 
   public void setTicket(Ticket ticket) {
     this.ticket = ticket;
+  }
+
+  public String getIszf() {
+    return iszf;
+  }
+
+  public void setIszf(String iszf) {
+    this.iszf = iszf;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  public Integer getTicketNum() {
+    return ticketNum;
+  }
+
+  public void setTicketNum(Integer ticketNum) {
+    this.ticketNum = ticketNum;
+  }
+
+  public Double getPrice() {
+    return price;
+  }
+
+  public void setPrice(Double price) {
+    this.price = price;
   }
 }

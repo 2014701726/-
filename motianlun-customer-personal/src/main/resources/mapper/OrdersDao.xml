@@ -16,6 +16,10 @@
         <result property="seatId" column="seat_id" jdbcType="VARCHAR"/>
         <result property="takerName" column="taker_name" jdbcType="VARCHAR"/>
         <result property="takerPhone" column="taker_phone" jdbcType="VARCHAR"/>
+        <result property="iszf" column="iszf" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="ticketNum" column="ticket_num" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="VARCHAR"/>
         <association property="goods" javaType="whj.nb.motianluneureka.entity.Goods">
             <id property="goodId" column="good_id" jdbcType="INTEGER"/>
             <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
@@ -43,16 +47,13 @@
     <!--查询单个-->
     <select id="queryById" resultMap="OrdersMap">
         SELECT
-	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,
-	o.taker_name,o.taker_phone,t.ticket_price,ct.check_time,g.good_name,g.good_img,g.show_time,g.show_address
+	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,o.state,o.iszf,o.ticket_num,
+	o.taker_name,o.taker_phone,o.price,o.ticket_num
+,g.good_name,g.good_img,g.show_time,g.show_address
 FROM
 	orders o
-JOIN ticket t
-JOIN check_time ct
 JOIN goods g
-ON o.ticket_id = t.check_ticked_id
-AND o.good_id=g.good_id
-AND o.check_time_id = ct.check_ticket_id
+ON o.good_id=g.good_id
 WHERE o.order_id=#{orderId};
     </select>
 
@@ -61,17 +62,16 @@ WHERE o.order_id=#{orderId};
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="OrdersMap">
         SELECT
-	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,
-	o.taker_name,o.taker_phone,t.ticket_price,ct.check_time,g.good_name,g.good_img,g.show_time,g.show_address
+	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,o.state,o.iszf,o.ticket_num,
+	o.taker_name,o.taker_phone,o.price,o.ticket_num,t.ticket_price,t.ticket_type,g.good_name,g.good_img,g.show_time,g.show_address
 FROM
 	orders o
 JOIN ticket t
-JOIN check_time ct
 JOIN goods g
 ON o.ticket_id = t.check_ticked_id
 AND o.good_id=g.good_id
-AND o.check_time_id = ct.check_ticket_id
-WHERE o.customer_id=#{customerId};
+AND o.customer_id=#{customerId}
+ORDER BY o.order_id DESC;
     </select>
 
     <!--新增所有列-->

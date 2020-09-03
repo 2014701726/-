@@ -1,6 +1,8 @@
 package whj.nb.motianluneureka.controller;
 
+import com.aliyuncs.exceptions.ClientException;
 import org.springframework.web.bind.annotation.*;
+import whj.nb.motianluneureka.config.AliyunConfig;
 import whj.nb.motianluneureka.entity.Orders;
 import whj.nb.motianluneureka.service.OrdersService;
 import whj.nb.vo.ResultVO;
@@ -89,5 +91,20 @@ public class OrdersController {
             return new ResultVO(1,"fail",null);
         }
     }
-
+    @RequestMapping(value = "/info/{takerPhone}/{takerName}/{orderId}/{time}/{ticket}/{ticketNum}/{seat}/{price}",method = RequestMethod.POST)
+    public ResultVO order(@PathVariable String takerPhone,@PathVariable String takerName,
+                          @PathVariable String orderId,@PathVariable String time,
+                          @PathVariable String ticket,@PathVariable Integer ticketNum,
+                          @PathVariable String seat,@PathVariable Double price){
+        AliyunConfig aliyunConfig = new AliyunConfig();
+        try {
+            aliyunConfig.order(takerPhone,takerName,orderId,time,ticket,ticketNum,seat,price);
+            return new ResultVO(0,"ok",null);
+        } catch (ClientException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

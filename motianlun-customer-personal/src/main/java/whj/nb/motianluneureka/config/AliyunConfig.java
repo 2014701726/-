@@ -2,6 +2,7 @@ package whj.nb.motianluneureka.config;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
+import com.aliyuncs.dysmsapi.model.v20170525.SendBatchSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
@@ -92,19 +93,17 @@ public class AliyunConfig {
                 DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
                 IAcsClient acsClient = new DefaultAcsClient(profile);
                 SendSmsRequest request = new SendSmsRequest();
+                SendBatchSmsRequest request1 = new SendBatchSmsRequest();
                 request.setPhoneNumbers(takerPhone);
                 //短信签名
                 request.setSignName("摩天轮");
                 //短信模板
                 request.setTemplateCode("SMS_200724097");
                 //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-                request.setTemplateParam("{\"name\":\"" + takerName + "\"}");
-                request.setTemplateParam("{\"orderId\":\"" + orderId + "\"}");
-                request.setTemplateParam("{\"time\":\"" + time + "\"}");
-                request.setTemplateParam("{\"ticket\":\"" + ticket + "\"}");
-                request.setTemplateParam("{\"ticketNum\":\"" + ticketNum + "\"}");
-                request.setTemplateParam("{\"seat\":\"" + seat + "\"}");
-                request.setTemplateParam("{\"price\":\"" + price + "\"}");
+                request.setTemplateParam("{\"name\":\"" + takerName + "\",}"+"{\"orderId\":\"" + orderId + "\"}"+
+                        "{\"time\":\"" + time + "\"}"+"{\"ticket\":\"" + ticket + "\"}"+"{\"ticketNum\":\"" + ticketNum + "\"}"+"{\"seat\":\"" + seat + "\"}"+
+                        "{\"price\":\"" + price + "\"}");
+                request1.setTemplateParamJson("[{\"name\":\""+takerName+"\", \"orderId\":\""+orderId+"\",\"time\":\"" + time + "\",\"ticket\":\"" + ticket + "\",\"ticketNum\":\"" + ticketNum +"\",\"seat\":\"" + seat + "\",\"price\":\"" + price + "\"}]");
                 //orderId-其他；time-演出时间；ticket-演出名称；ticketNum-票数；seat-其他；price-其他；
                 //hint 此处可能会抛出异常，注意catch
                 SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);

@@ -19,6 +19,7 @@
             <result property="skuId" column="sku_id" jdbcType="VARCHAR"/>
             <result property="goodDetail" column="good_detail" jdbcType="VARCHAR"/>
             <result property="goodCityId" column="good_city_id" jdbcType="INTEGER"/>
+            <result property="goodPrice" column="good_price" jdbcType="INTEGER"/>
             <result property="performanceTypeId" column="performance_type_id" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
@@ -26,7 +27,7 @@
     <!--查询想看演出详情-->
     <select id="queryById" resultMap="CustomerLoveMap">
         select
-          customer_love_id, customer_id, cl.good_id,good_name,detail_url,good_img,look_up,show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id,performance_type_id
+          customer_love_id, customer_id, cl.good_id,good_name,detail_url,good_price,good_img,look_up,show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id,performance_type_id
         from motianlun.customer_love cl
         where customer_love_id = #{customerLoveId}
     </select>
@@ -35,7 +36,7 @@
     <!--查询想看演出的最后六个-->
     <select id="queryAll" resultMap="CustomerLoveMap">
         select
-        customer_love_id, customer_id, cl.good_id,good_name,detail_url,good_img,look_up,show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id,performance_type_id
+        customer_love_id, customer_id, cl.good_id,good_name,detail_url,good_price,good_img,look_up,show_time,show_address,good_love_num,detail_name,sku_id,good_detail,good_city_id,performance_type_id
         FROM customer_love cl JOIN goods g ON cl.good_id=g.good_id
         <where>
 

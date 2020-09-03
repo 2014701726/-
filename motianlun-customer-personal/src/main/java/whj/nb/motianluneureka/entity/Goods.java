@@ -1,6 +1,8 @@
 package whj.nb.motianluneureka.entity;
 
 
+import java.sql.Date;
+
 public class Goods {
 
   private long goodId;
@@ -16,6 +18,7 @@ public class Goods {
   private String goodDetail;
   private long goodCityId;
   private String performanceTypeId;
+  private Integer goodPrice;
 
 
   public long getGoodId() {
@@ -134,4 +137,31 @@ public class Goods {
     this.performanceTypeId = performanceTypeId;
   }
 
+  public Integer getGoodPrice() {
+    return goodPrice;
+  }
+
+  public void setGoodPrice(Integer goodPrice) {
+    this.goodPrice = goodPrice;
+  }
+
+  public Goods() {
+  }
+
+  public Goods(long goodId, String goodName, String detailUrl, String goodImg, long lookUp, Date showTime, String showAddress, long goodLoveNum, String detailName, String skuId, String goodDetail, long goodCityId, String performanceTypeId, Integer goodPrice) {
+    this.goodId = goodId;
+    this.goodName = goodName;
+    this.detailUrl = detailUrl;
+    this.goodImg = goodImg;
+    this.lookUp = lookUp;
+    this.showTime = showTime;
+    this.showAddress = showAddress;
+    this.goodLoveNum = goodLoveNum;
+    this.detailName = detailName;
+    this.skuId = skuId;
+    this.goodDetail = goodDetail;
+    this.goodCityId = goodCityId;
+    this.performanceTypeId = performanceTypeId;
+    this.goodPrice = goodPrice;
+  }
 }
