@@ -33,9 +33,10 @@ public class TimeoutOrderListener {
     public void onMessage(String orderId) {
         Orders orders = ordersService.queryById(orderId);
         if (orders.getIszf().equals("0")) {
+            System.out.println(orderId);
             //未支付，则修改订单状态为过期
             ordersService.updateById(orderId, 2);
-            if (orders.getSeat() != null){
+            if (orders.getSeat() != null && orders.getSeat() != ""){
                 //修改座位为未出售
                 Seat seat = new Seat();
                 seat.setSeat(orders.getSeat());
@@ -48,25 +49,9 @@ public class TimeoutOrderListener {
                     stringRedisTemplate.delete(key);
                 }
             }
-
-
-       }
-//        else {
-//            String takerPhone = orders.getTakerPhone();
-//            String takerName = orders.getTakerName();
-//            String time = orders.getCheckTime().getCheckTime();
-//            String ticket = orders.getGoods().getDetailName().substring(0,18);
-//            Integer ticketNum = orders.getTicketNum();
-//            String seat = orders.getSeat();
-//            Double price = orders.getPrice();
-//            ticket = ticket.replace("{", "");
-//            ticket = ticket.replace("}", "");
-//            if (seat == null){
-//                seat = "无座";
-//            }
-//            String uri = takerPhone + "/" + takerName + "/" + time + "/" + orderId + "/" + ticket + "/" + ticketNum + "/" + seat + "/" + price;
-
-//        }
+        }else {
+            System.out.println(orderId);
+        }
     }
 
 }
