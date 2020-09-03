@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.CheckTimeDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.CheckTime" id="CheckTimeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="checkTimeId" column="check_time_id" jdbcType="VARCHAR"/>
+        <result property="checkTime" column="check_time" jdbcType="VARCHAR"/>
+        <result property="checkTicketId" column="check_ticket_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryById" resultMap="CheckTimeMap">
+        select
+        id, check_time_id, check_time, check_ticket_id
+        from motianlun.check_time
+        where check_ticket_id = #{checkTicketId}
+
+    </select>
+
+
+
+</mapper>

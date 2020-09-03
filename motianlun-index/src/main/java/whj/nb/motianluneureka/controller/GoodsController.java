@@ -1,5 +1,6 @@
 package whj.nb.motianluneureka.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import whj.nb.motianluneureka.entity.Goods;
 import whj.nb.motianluneureka.service.GoodsService;
@@ -98,6 +99,20 @@ public class GoodsController {
             resultVO.setCode(1);
         }
 
+        return resultVO;
+    }
+
+    @RequestMapping("find/{goodId}")
+    public ResultVO find(@PathVariable String goodId){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        try {
+            Goods goods = goodsService.findByGoodId(goodId);
+            resultVO.setCode(0);
+            resultVO.setT(goods);
+        }catch (Exception e){
+            e.printStackTrace();
+            resultVO.setCode(1);
+        }
         return resultVO;
     }
 

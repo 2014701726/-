@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.motianluneureka.dao.TicketDao">
+
+    <resultMap type="whj.nb.motianluneureka.entity.Ticket" id="TicketMap">
+        <result property="checkTickedId" column="check_ticked_id" jdbcType="VARCHAR"/>
+        <result property="ticketName" column="ticket_name" jdbcType="VARCHAR"/>
+        <result property="ticketPrice" column="ticket_price" jdbcType="OTHER"/>
+        <result property="ticketType" column="ticket_type" jdbcType="VARCHAR"/>
+        <result property="ticketDiscount" column="ticket_discount" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TicketMap">
+        select
+          check_ticked_id, ticket_name, ticket_price, ticket_type, ticket_discount
+        from motianlun.ticket
+        where check_ticked_id = #{checkTickedId}
+    </select>
+
+
+
+</mapper>

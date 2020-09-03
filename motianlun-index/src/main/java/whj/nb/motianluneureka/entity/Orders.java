@@ -65,7 +65,7 @@ public class Orders implements Serializable {
     /**
      * 价格
      */
-    private Object price;
+    private Double price;
     /**
      * 数量
      */
@@ -79,6 +79,10 @@ public class Orders implements Serializable {
      */
     private String state;
 
+
+    private Goods goods;
+    private CheckTime checkTime;
+    private Ticket ticket;
 
     public String getOrderId() {
         return orderId;
@@ -184,11 +188,11 @@ public class Orders implements Serializable {
         this.takerPhone = takerPhone;
     }
 
-    public Object getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Object price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -216,4 +220,27 @@ public class Orders implements Serializable {
         this.state = state;
     }
 
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public CheckTime getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(CheckTime checkTime) {
+        this.checkTime = checkTime;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
 }

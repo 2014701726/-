@@ -41,7 +41,6 @@ public class SeatServiceImpl implements SeatService {
         return this.seatDao.queryById(seatId);
     }
 
-
     /**
      * 修改数据
      *
@@ -108,6 +107,19 @@ public class SeatServiceImpl implements SeatService {
         }
         return j;
 
+    }
+
+    @Override
+    public int update0(Seat seat) {
+        String[] split = seat.getSeat().split(",");
+        String send = "";
+        for (String s1 : split) {
+            send+="\""+s1+"\",";
+        }
+        send = send.substring(0, send.length()-1 );
+        seat.setSeat(send);
+        seatDao.update(seat);
+        return seatDao.update0(seat);
     }
 
     @Override

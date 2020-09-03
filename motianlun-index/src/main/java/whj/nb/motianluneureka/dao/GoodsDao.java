@@ -18,6 +18,14 @@ public interface GoodsDao {
 
 
     /**
+     * 查详情
+     * @param goodId
+     * @return
+     */
+    Goods findById(String goodId);
+
+
+    /**
      * 通过实体作为筛选条件查询
      *
      * @param goods 实例对象
@@ -67,4 +75,11 @@ public interface GoodsDao {
      * @return
      */
     List<Goods> findAllByTime(@Param("goodCityId") Integer goodCityId, @Param("showTime") String showTime, @Param("limit") Integer limit);
+
+    /**
+     * 选座页面详情
+     * @param goodId
+     * @return
+     */
+    Goods findByGoodId(String goodId);
 }

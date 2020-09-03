@@ -46,7 +46,7 @@ public class esSearcher {
     public RestHighLevelClient restHighLevelClient(){
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("192.168.61.32", 9200, "http")));
+                        new HttpHost("http://localhost", 9200, "http")));
         return client;
     }
 
