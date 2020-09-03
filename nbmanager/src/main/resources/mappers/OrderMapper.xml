@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whj.nb.nbmanager.dao.OrderDao">
+    <select id="allOrder" resultType="whj.nb.nbmanager.bean.Order" resultSets="java.util.List">
+        select * from orders
+    </select>
+
+    <delete id="delOrder" parameterType="whj.nb.nbmanager.bean.Order">
+        delete from orders where order_id=#{id}
+    </delete>
+</mapper>

@@ -33,6 +33,26 @@ public class GoodController {
         return new ResultVO(1,"success",integer);
     }
 
+    @RequestMapping("/delGood/{goodId}")
+    public ResultVO toDelGood(@PathVariable("goodId") String goodId){
+        Integer integer = goodService.delGood(goodId);
+
+        return new ResultVO(1,"success",integer);
+    }
+
+    @RequestMapping("updateGood")
+    public ResultVO toDelGood(@RequestBody Good good){
+        System.out.println(good.getGood_id());
+        Integer integer = goodService.updateGood(good);
+
+        return new ResultVO(1,"success",integer);
+    }
+    @RequestMapping("/preUpdateGood/{goodId}")
+    public ResultVO preUpdateGood(@PathVariable("goodId") String goodId){
+        Good good = goodService.findByid(goodId);
+        return new ResultVO(1,"success",good);
+
+    }
 
 
 
