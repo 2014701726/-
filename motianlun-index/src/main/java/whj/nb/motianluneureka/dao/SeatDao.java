@@ -42,6 +42,14 @@ public interface SeatDao {
      */
     int update(Seat seat);
 
+    /**
+     * 修改数据
+     *
+     * @param seat 实例对象
+     * @return 影响行数
+     */
+    int update0(Seat seat);
+
 
 
 }

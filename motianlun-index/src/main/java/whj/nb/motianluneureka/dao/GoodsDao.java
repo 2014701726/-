@@ -75,4 +75,11 @@ public interface GoodsDao {
      * @return
      */
     List<Goods> findAllByTime(@Param("goodCityId") Integer goodCityId, @Param("showTime") String showTime, @Param("limit") Integer limit);
+
+    /**
+     * 选座页面详情
+     * @param goodId
+     * @return
+     */
+    Goods findByGoodId(String goodId);
 }

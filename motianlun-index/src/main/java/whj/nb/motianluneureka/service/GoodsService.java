@@ -58,4 +58,10 @@ public interface GoodsService {
      */
     PageBean findAllByTime(Integer goodCityId, String showTime, Integer limit);
 
+    /**
+     * 选座页面详情
+     * @param goodId
+     * @return
+     */
+    Goods findByGoodId(String goodId);
 }

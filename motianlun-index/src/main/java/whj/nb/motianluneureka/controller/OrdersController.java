@@ -77,11 +77,14 @@ public class OrdersController {
         return resultVO;
     }
 
-    @RequestMapping("pay/{orderId}")
-    public ResultVO pay(@PathVariable String orderId){
+    @RequestMapping("pay/{orderId}/{takerPhone}")
+    public ResultVO pay(@PathVariable String orderId,@PathVariable String takerPhone){
         ResultVO<Object> resultVO = new ResultVO<>();
         try {
             ordersService.updateById(orderId,1);
+            restTemplate.getForEntity("http://motianlun-customer-dao-server/customer/" + takerPhone,
+                    ResultVO.class
+            );
             resultVO.setCode(0);
             resultVO.setMsg("订单修改为已支付");
         }catch (Exception e){

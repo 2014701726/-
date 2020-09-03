@@ -90,4 +90,9 @@ public class GoodsServiceImpl implements GoodsService {
         });
     }
 
+    @Override
+    public Goods findByGoodId(String goodId) {
+        return goodsDao.findByGoodId(goodId);
+    }
+
 }
