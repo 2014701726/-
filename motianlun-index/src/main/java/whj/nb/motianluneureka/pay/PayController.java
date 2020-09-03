@@ -31,6 +31,7 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("pay")
 public class PayController {
+    private String uri;
 
     @Resource
     private OrdersService ordersService;
@@ -53,7 +54,7 @@ public class PayController {
             data.put("fee_type", "CNY");
             data.put("total_fee", "1");
             data.put("spbill_create_ip", "123.12.12.123");
-            data.put("notify_url", " http://469zsx.natappfree.cc/pay/notify");
+            data.put("notify_url", "http://kyv4zh.natappfree.cc/pay/notify");
             // 此处指定为扫码支付
             data.put("trade_type", "NATIVE");
             data.put("product_id", "12");
@@ -61,6 +62,7 @@ public class PayController {
             try {
                 Map<String, String> resp = wxPay.unifiedOrder(data);
                 String code_url = resp.get("code_url");
+                uri = code_url;
                 session.setAttribute("payUrl",code_url);
                 resultVO.setCode(0);
                 resultVO.setMsg("订单未过期，请扫码支付");
@@ -77,7 +79,7 @@ public class PayController {
     @RequestMapping("/qrcode")
     public void qrcode(HttpServletResponse response,HttpSession session) throws URISyntaxException, IOException {
         //二维码需要包含的文本内容
-        String uri = session.getAttribute("payUrl").toString();
+//        String uri = session.getAttribute("payUrl").toString();
         HashMap<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         //二维码精度高度

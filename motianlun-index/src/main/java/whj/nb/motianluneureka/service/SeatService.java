@@ -1,5 +1,6 @@
 package whj.nb.motianluneureka.service;
 
+import whj.nb.motianluneureka.entity.Goods;
 import whj.nb.motianluneureka.entity.Seat;
 
 import java.util.List;
@@ -29,6 +30,14 @@ public interface SeatService {
      * @return 实例对象
      */
     int update(Seat seat);
+
+    /**
+     * 修改数据
+     *
+     * @param seat 实例对象
+     * @return 实例对象
+     */
+    int update0(Seat seat);
 
     /**
      * 通过实体作为筛选条件查询

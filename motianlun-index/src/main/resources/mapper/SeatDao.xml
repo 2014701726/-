@@ -38,5 +38,13 @@
 
     </update>
 
+    <!--通过主键修改数据-->
+    <update id="update0">
+        update motianlun.seat
+        set seat_state = "0"
+        where seat in (${seat})
+
+    </update>
+
 
 </mapper>

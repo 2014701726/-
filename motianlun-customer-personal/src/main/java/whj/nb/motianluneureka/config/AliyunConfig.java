@@ -81,7 +81,7 @@ public class AliyunConfig {
         return code;
     }
 
-    public String order(String takerPhone,String takerName,String orderId,String time,String ticket,Integer ticketNum,String seat,Double price)throws ClientException, InterruptedException {
+    public void order(String takerPhone,String takerName,String orderId,String time,String ticket,Integer ticketNum,String seat,Double price)throws ClientException, InterruptedException {
         {
             //设置过期时间
             System.setProperty("sun.net.client.defaultConnectTimeout", "300000");
@@ -98,13 +98,17 @@ public class AliyunConfig {
                 //短信模板
                 request.setTemplateCode("SMS_200724097");
                 //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-                request.setTemplateParam("{\"name\":\"" + takerName + "\"}");
-                request.setTemplateParam("{\"orderId\":\"" + orderId + "\"}");
-                request.setTemplateParam("{\"time\":\"" + time + "\"}");
-                request.setTemplateParam("{\"ticket\":\"" + ticket + "\"}");
-                request.setTemplateParam("{\"ticketNum\":\"" + ticketNum + "\"}");
-                request.setTemplateParam("{\"seat\":\"" + seat + "\"}");
-                request.setTemplateParam("{\"price\":\"" + price + "\"}");
+
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append("{\"name\":\"" + takerName + "\",");
+                stringBuffer.append("\"orderId\":\"" + orderId + "\",");
+                stringBuffer.append("\"time\":\"" + time + "\",");
+                stringBuffer.append("\"ticket\":\"" + ticket + "\",");
+                stringBuffer.append("\"ticketNum\":\"" + ticketNum + "\",");
+                stringBuffer.append("\"seat\":\"" + seat + "\",");
+                stringBuffer.append("\"price\":\"" + price + "\"}");
+
+                request.setTemplateParam(stringBuffer.toString());
                 //orderId-其他；time-演出时间；ticket-演出名称；ticketNum-票数；seat-其他；price-其他；
                 //hint 此处可能会抛出异常，注意catch
                 SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
@@ -116,7 +120,7 @@ public class AliyunConfig {
             } catch (ClientException e) {
                 e.printStackTrace();
             }
-            return null;
+
 
         }
 
