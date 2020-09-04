@@ -65,13 +65,13 @@ WHERE o.order_id=#{orderId};
 	o.order_id,o.good_id,o.customer_id,o.create_time,o.address_id,o.remark,o.state,o.iszf,o.ticket_num,
 	o.taker_name,o.taker_phone,o.price,o.ticket_num,t.ticket_price,t.ticket_type,g.good_name,g.good_img,g.show_time,g.show_address
 FROM
-	orders o
-JOIN ticket t
-JOIN goods g
-ON o.ticket_id = t.check_ticked_id
-AND o.good_id=g.good_id
-AND o.customer_id=#{customerId}
-ORDER BY o.order_id DESC;
+        orders o
+        JOIN ticket t
+    JOIN goods g
+    ON o.ticket_id = t.check_ticked_id
+    AND o.good_id=g.good_id
+    AND o.customer_id=#{customerId}
+    ORDER BY o.order_id DESC;
     </select>
 
     <!--新增所有列-->

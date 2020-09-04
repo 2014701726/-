@@ -30,7 +30,7 @@ public class GoodsServiceImpl implements GoodsService {
         List<Goods> goods = goodsDao.queryById(cityId, performanceTypeId,time ,condition);
 
 
-        if(time == "weeked" ){
+        if(time == "weeked" || "weeked".equals(time)){
             List<Goods> find7Good =new ArrayList<>();
             for (Goods good : goods) {
 //                System.out.println(1);

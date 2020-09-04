@@ -58,22 +58,40 @@ public class CustomerController {
 
     }
 
+    @RequestMapping("pay/{telnum}")
+    public ResultVO send(@PathVariable("telnum") String telnum){
+        try {
+            AliyunConfig aliyunConfig = new AliyunConfig();
+            code = aliyunConfig.login(telnum);
+            return new ResultVO(0,"send login code",null);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResultVO(1,"fail",null);
+        }
+
+    }
+
     @RequestMapping("/{telnum}/{msg}")
     public ResultVO login(@PathVariable("telnum") String telnum,@PathVariable("msg") String msg){
         Customer customer1 = new Customer();
+        // 查看数据库是否存在
         Customer customer = customerService.queryById(telnum);
         String customerId = null;
         try {
+            //不存在
             if(customer==null){
                 customer1.setCustomerId(System.currentTimeMillis()+"");
                 customer1.setCustomerPhone(telnum);
                 customerService.insert(customer1);
                  customerId = customer1.getCustomerId();
-            }else {
+            }
+            //已存在
+            else {
                  customerId = customer.getCustomerId();
             }
             if (msg!=null&&msg!=""){
-                if (msg.equals(code)) {
+                if (msg.equals(code)) { // 短信验证正确
 
                     /**
                      * setSubject 设置用户信息
@@ -91,10 +109,14 @@ public class CustomerController {
                             .compact();
                     stringRedisTemplate.opsForValue().set(telnum+"@loginToken",token,36000, TimeUnit.SECONDS);
                     stringRedisTemplate.opsForValue().set(telnum,customerId,36000, TimeUnit.SECONDS);
+
+
                     CustomerVO customerVO = new CustomerVO(customerId, telnum, token);
+
                     return new ResultVO(0, "login success", customerVO);
                 }
                 else {
+                    // 验证错误
                     return new ResultVO(1,"fail",null);
                 }
             }
@@ -103,7 +125,7 @@ public class CustomerController {
             e.printStackTrace();
             return new ResultVO(1,"fail",null);
         }
-        return null;
+        return new ResultVO(1,"fail",null);
     }
 
 }

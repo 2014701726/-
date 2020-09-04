@@ -54,7 +54,7 @@ public class PayController {
             data.put("fee_type", "CNY");
             data.put("total_fee", "1");
             data.put("spbill_create_ip", "123.12.12.123");
-            data.put("notify_url", "http://kyv4zh.natappfree.cc/pay/notify");
+            data.put("notify_url", "http://3nbpeq.natappfree.cc/pay/notify");
             // 此处指定为扫码支付
             data.put("trade_type", "NATIVE");
             data.put("product_id", "12");

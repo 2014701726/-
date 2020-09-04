@@ -33,7 +33,7 @@ public class TimeoutOrderListener {
     public void onMessage(String orderId) {
         Orders orders = ordersService.queryById(orderId);
         if (orders.getIszf().equals("0")) {
-            System.out.println(orderId);
+            System.out.println("未支付"+orderId);
             //未支付，则修改订单状态为过期
             ordersService.updateById(orderId, 2);
             if (orders.getSeat() != null && orders.getSeat() != ""){
@@ -50,7 +50,7 @@ public class TimeoutOrderListener {
                 }
             }
         }else {
-            System.out.println(orderId);
+            System.out.println("已支付"+orderId);
         }
     }
 
